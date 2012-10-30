@@ -16,12 +16,13 @@ This doesn't imply it's less productive than let's say customizing a wordpress s
 
 Cmx let's you do what you do best, write php/html/css without worrying about the variety of forms you'll need to create/validate/insert to make it into a cms (over and over again for each site you make).
 
-Simple templating system, with no hard to learn api.
-In a json file (1 for each template) you specify the input fields the client can use to edit his content. (4 standard html inputs, easily extendable with javascript admin-plugins)
-Caching (you can specify which pages can be cached and which not, or manually cache parts of your template/page).
-Multilingual support (and appropriate caching)
-Backend currently allows users to create/edit/delete/reorder pages as well as upload files/images (images can be resized to dimensions specified in Config or dynamically in a template).
-Built for speed both on back and frontend.
+*  Simple templating system, with no hard to learn api.
+*  In a json file (1 for each template) you specify the input fields the client can use to edit his content. (4 standard html inputs, easily extendable with javascript admin-plugins)
+*  Caching (you can specify which pages can be cached and which not, or manually cache parts of your template/page).
+*  Multilingual support (and appropriate caching)
+*  Backend currently allows users to create/edit/delete/reorder pages as well as upload files/images (images can be resized to dimensions specified in Config or dynamically in a template).
+*  Built for speed both on back and frontend.
+
 If you are interested in this project, and would like to comment/contribute/... I'd be thrilled if you mailed me at kobelipkens@gmail.com.
 
 Installation
