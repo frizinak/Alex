@@ -1,0 +1,11 @@
+{
+    "template":"redirTpl",
+    "tplData":{
+        "location":{
+            "label":"url",
+            "description":"url to redirect to",
+            "type":"text",
+            "default":"real/blog"
+        }
+    }
+}

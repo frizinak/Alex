@@ -1,0 +1,652 @@
+/*
+//  LOGIN
+//  MENU
+//  TABS
+//  NOTICE
+//  MAIN
+//  PAGELIST
+//  FORMS
+//  MESSAGE
+//
+*/
+/*
+a
+{
+    transition: color 0.5s, background-color 0.5s;
+    -moz-transition: color 0.5s, background-color 0.5s;
+    -webkit-transition: color 0.5s, background-color 0.5s;
+    -o-transition: color 0.5s, background-color 0.5s;
+}
+  */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.clear {
+    clear: both;
+}
+
+body {
+    background-color: #e4e3cf;
+    font-family: Verdana, Geneva, sans-serif;
+    /*overflow-y: scroll;*/
+}
+
+#container {
+    width: 100%;
+
+}
+
+/*------------LOGIN----------*/
+
+#nojs {
+    width: 50%;
+    padding: 15px;
+    box-shadow: 8px 8px 15px #cdcdbc;
+    margin: 50px auto 0 auto;
+    border: 2px solid #cdcdbc;
+    background-image: url("editor_bg.png");
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 13px;
+}
+
+#nojs a {
+    color: #711;
+    font-style: italic;
+}
+
+#nojs a:hover {
+    color: #a66;
+}
+
+#nojs p {
+    color: #d24a4a;
+    display: block;
+    width: 80%;
+    margin: 0 0 0 0;
+    padding: 5px 10%;
+    background: url('alert.png') no-repeat 4% 8px;
+
+    /*
+    color: #d24a4a;
+    border: 2px solid #d24a4a;
+    display: block;
+    width: 80%;
+    margin: 0 0 0 6%;
+    padding: 5px 4%;
+    font-weight: bold;
+    background:  url('alert.png') no-repeat 6% 7px;
+
+    text-align: right;
+    */
+}
+
+#login-form {
+    width: 250px;
+    /*padding: 50px;*/
+    box-shadow: 8px 8px 15px #cdcdbc;
+    margin: 50px auto 0 auto;
+    border: 2px solid #cdcdbc;
+    background-image: url("editor_bg.png");
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 13px;
+
+}
+
+#head {
+    background-image: url("menu_bg.png");
+    margin-bottom: 10px;
+    height: 30px;
+}
+
+#llogo {
+    display: block;
+    width: 250px;
+    height: 30px;
+    background: url("logo.png") no-repeat 185px 0;
+}
+
+#login-form #loginError {
+    color: #d24a4a;
+    border: 2px solid #d24a4a;
+    display: block;
+    width: 80%;
+    margin: 0 0 0 6%;
+    padding: 5px 4%;
+    font-weight: bold;
+    background: url('alert.png') no-repeat 6% 7px;
+
+    text-align: right;
+}
+
+#login-form label {
+    font-variant: small-caps;
+    display: block;
+    padding: 5px 20px;
+    color: #566;
+}
+
+#login-form input {
+    display: block;
+    width: 80%;
+    margin: 0 0 0 8%;
+    padding: 5px 2%;
+    font-size: 0.8em;
+    font-weight: bold;
+    border: 1px solid #cdcdbc;
+    color: #566;
+}
+
+#login-form input:active, #login-form input:focus {
+    outline: 1px solid #4ab4d2;
+}
+
+#login-form input[type=submit] {
+    width: 84%;
+    font-size: 12px;
+    padding: 5px 0;
+    margin: 20px 0 20px 8%;
+    /*121201*/
+
+    background-color: #e4e3cf;
+    cursor: pointer;
+}
+
+#login-form input[type=submit]:hover {
+    color: #4ab4d2;
+    border: 1px solid #4ab4d2;
+}
+
+/*------------MENU----------*/
+#menu {
+    background-image: url("menu_bg.png");
+    height: 36px;
+    padding: 14px 30px 0 15px;
+    min-width: 500px;
+    max-width: 100%;
+}
+
+#logo {
+    display: block;
+    width: 52px;
+    height: 30px;
+    float: left;
+    margin-top: -4px;
+    margin-right: 25px;
+    background-image: url("logo.png");
+}
+
+#logo span {
+    display: none;
+}
+
+#left {
+    float: left;
+    width: 40%;
+}
+
+#right {
+    width: 40%;
+    float: right;
+    text-align: right;
+}
+
+#menu a, #backup input {
+    text-decoration: none;
+    font-size: 9px;
+    font-weight: bold;
+    /*font-variant: small-caps;*/
+    text-transform: uppercase;
+    color: #4ab4d2;
+}
+
+#menu a:hover, #backup input:hover {
+    color: #e4e3cf;
+}
+
+#backup {
+    display: inline;
+}
+
+#backup input {
+    margin: 0 20px;
+    font-family: Verdana, Geneva, sans-serif;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+#menu #currLang {
+    display: inline-block;
+    width: 16px;
+    height: 11px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    position: relative;
+    padding: 0 10px 0 10px;
+
+}
+
+#menu #currLang:hover span {
+    display: block;
+}
+
+#menu span#langs {
+    display: none;
+    position: absolute;
+    background-color: #e4e3cf;
+    top: -8px;
+    left: -8px;
+    z-index: 100;
+}
+
+#menu a.lang {
+    display: block;
+    width: 16px;
+    height: 18px;
+    margin: 8px;
+    background-repeat: no-repeat;
+}
+
+#menu a.lang.active {
+    text-decoration: underline;
+    color: #888;
+}
+
+/*------------TABS----------*/
+
+#tabs {
+
+    display: inline-block;
+    background-color: #e4e3cf;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.18);
+    padding: 3px 0 2px 0;
+    position: absolute;
+    top: 35px;
+    right: 0;
+    /*left: 280px/*540px;*/
+    margin-right: 150px;
+}
+
+#tabs a {
+    display: inline-block;
+    text-align: center;
+    /*min-width: 30px;*/
+    padding: 0 30px;
+    height: 20px;
+    text-decoration: none;
+    color: #030c16;
+    font-size: 9px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#tabs a.active {
+    cursor: default;
+}
+
+#tabs a:hover, #tabs a.active {
+    color: #4ab4d2;
+}
+
+/*------------NOTICE----------*/
+
+#labeltip {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 11px;
+    color: #2f7285;
+    font-weight: bold;
+    display: inline-block;
+    margin: 10px 0 0 30px;
+    padding: 2px 12px 0 12px;
+    min-width: 246px;
+    height: 18px;
+    background-color: #cdcdbc;
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.16);
+}
+
+#labeltip.critical {
+    color: #852f2f;
+    background-color: #cdbcbc;
+}
+
+/*------------MAIN----------*/
+
+#main {
+    margin: 10px 30px 0 30px;
+}
+
+#pageDescr {
+    display: none;
+}
+
+/*------------PAGELIST----------*/
+
+#pages {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    list-style: none;
+    border: 2px solid #cdcdbc;
+    width: 225px;
+    padding: 28px 28px 28px 13px;
+    margin: 0 30px 30px 0;
+    font-size: 10px;
+    position: relative;
+    float: left;
+    background-image: url("editor_bg.png");
+}
+
+#pages:hover #pagelock {
+    display: block;
+}
+
+#pagelock {
+    display: none;
+    color: #efefef;
+    text-decoration: none;
+    background-image: url('lock.png');
+    width: 10px;
+    height: 13px;
+    position: absolute;
+    top: 7px;
+    left: 7px;
+}
+
+#pagelock.locked {
+    background-position: 10px;
+}
+
+#pages ul {
+    list-style: none;
+}
+
+#pages li {
+    position: relative;
+    padding: 0 0 0 15px;
+    white-space: nowrap;
+    margin: 0;
+    line-height: 0px;
+
+}
+
+#pages a {
+    text-decoration: none;
+    color: #030c16;
+}
+
+#pages a.page {
+    margin: 0 0 2px 0;
+    /*font-weight: bolder;  */
+    height: 9px;
+    display: inline-block;
+    padding: 8px 0 0 5px;
+    width: 100%;
+    background-color: #cdcdbc;
+    overflow: hidden;
+}
+
+#pages a.page:hover {
+    color: #4ab4d2;
+    background-color: #030c16;
+
+}
+
+#pages a.page.active {
+    color: #4ab4d2;
+    background-color: #030c16;
+    cursor: default;
+}
+
+#pages a.sub {
+    margin-top: 0px;
+    background-image: url('pagelist_opener.png');
+    background-repeat: repeat-x;
+    background-position: 5px 5px;
+    height: 20px;
+    width: 25px;
+    position: absolute;
+    top: 0;
+    left: -11px;
+}
+
+#pages a.sub.closed {
+    background-position: 30px 5px;
+}
+
+#pages a.sub span {
+    display: none;
+}
+
+/*------------FORMS----------*/
+
+#editor, #newpage, #uploadwrapper {
+    float: left;
+    height: 100%;
+    border: 2px solid #cdcdbc;
+    padding: 0;
+    background-image: url("editor_bg.png");
+}
+
+#newpage {
+    width: 50%;
+    margin: 0 auto 0 auto;
+    float: none;
+}
+
+#uploadwrapper {
+    width: 50%;
+    margin: 0 auto 0 auto;
+    float: none;
+}
+
+#editor-form, #page-form, #uploadform, #newfolderform {
+    font-size: 11px;
+    margin: 20px 30px 20px 25px;
+    position: relative;
+}
+
+#editor label, #newpage label, #uploadwrapper label {
+    display: inline-block;
+    color: #030c16;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 13px;
+    font-variant: small-caps;
+    padding-bottom: 3px;
+    min-width: 100px;
+}
+
+label[data-title]:hover
+{
+    cursor: help;
+}
+
+#editor input:focus, #editor input:active,
+#newpage input:focus, #newpage input:active,
+#uploadwrapper input:focus, #uploadwrapper input:active {
+    outline: 1px solid #4ab4d2;
+}
+
+#editor input[type="text"]:focus, #editor textarea:focus, #editor select:focus,
+#editor input[type="text"]:active, #editor textarea:active, #editor select:active,
+#newpage input[type="text"]:focus, #newpage textarea:focus, #newpage select:focus,
+#newpage input[type="text"]:active, #newpage textarea:active, #newpage select:active,
+#uploadwrapper input[type="text"]:focus, #uploadwrapper textarea:focus, #uploadwrapper select:focus,
+#uploadwrapper input[type="text"]:active, #uploadwrapper textarea:active, #uploadwrapper select:active {
+    outline: none;
+    border: 1px solid #4ab4d2;
+}
+
+#editor input[type="text"], #editor textarea, #editor select,
+#newpage input[type="text"], #newpage textarea, #newpage select,
+#uploadwrapper input[type="text"], #uploadwrapper textarea, #uploadwrapper select {
+    background-color: #e4e3cf;
+    width: 100%;
+    color: #030c16;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 11px;
+    padding: 2px 5px;
+    margin: 0 0 6px 5px;
+    border: 1px solid #cdcdbc;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+#editor .rdgroup {
+    margin-left: 15px;
+}
+
+#editor .rdgroup label {
+    min-width: 85px;
+}
+
+#editor span.checkbox, #editor span.radio {
+    cursor: pointer;
+    display: inline-block;
+    width: 18px;
+    height: 15px;
+    margin: 5px 0 0 10px;
+    line-height: 0;
+    background: url("checkradio.png") 0 0;
+}
+
+#editor span.checkbox.checked {
+    background-position: 18px 0;
+}
+
+#editor span.radio {
+    background-position: 0 13px;
+}
+
+#editor span.radio.checked {
+    background-position: 18px 13px;
+}
+
+#submiteditform, #removepage, #submitnewform, #confirmno, #confirmyes, #uploadwrapper input[type="submit"] {
+    display: inline-block;
+    margin: 15px 10px;
+    padding: 5px 10px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 18px;
+    font-variant: small-caps;
+    font-weight: bold;
+    color: #cdcdbc;
+    text-transform: capitalize;
+    text-decoration: none;
+    border: 2px solid #cdcdbc;
+    background-color: #e4e3cf;
+    float: right;
+}
+
+#submiteditform:hover, #confirmno:hover, #submitnewform:hover, #uploadwrapper input[type="submit"]:hover {
+    color: #4ab4d2;
+    border: 2px solid #4ab4d2;
+}
+
+#removepage:hover, #confirmyes:hover {
+    color: #d24a4a;
+    border: 2px solid #d24a4a;
+}
+
+/*------------MESSAGE----------*/
+
+#layer {
+    background-image: url("layer_bg.png");
+}
+
+#message {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 11px;
+    padding: 15px;
+    color: #030c16;
+    border: 5px solid #bebdae;
+    background-color: #e4e3cf;
+}
+
+#confirmyes {
+    color: #d24a4a;
+    float: left;
+}
+
+#confirmno {
+    color: #4ab4d2;
+    float: right;
+}
+
+/*------------FILES----------*/
+
+#filecrumbs {
+    /*font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;*/
+    font-size: 11px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+#filesList {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    border: 2px solid #cdcdbc;
+    padding: 28px 28px 28px 13px;
+    margin: 30px auto 300px auto;
+    font-size: 10px;
+    position: relative;
+    background-image: url("editor_bg.png");
+    width: 80%;
+
+}
+
+#filesList span.filewrap {
+    display: block;
+    position: relative;
+    padding-left: 20px;
+}
+
+#filesList span.filewrap:hover a.deletefile
+{
+    display: block;
+}
+
+#filesList a {
+    display: block;
+    color: #030c16;
+    background-color: #cdcdbc;
+    text-decoration: none;
+    padding: 2px 5px;
+    margin-bottom: 2px;
+}
+
+#filesList a:hover, #filesList a.active {
+    color: #4ab4d2;
+    background-color: #030c16;
+}
+
+#filesList a.deletefile {
+    display: none;
+    opacity: 0.7;
+    background-image: url('delete.png');
+    padding: 0;
+    width: 10px;
+    height: 13px;
+    position: absolute;
+    top: 1px;
+    left: 5px;
+}
+
+#filesList a.deletefile:hover {
+    background-position: 10px 0;
+    background-color: transparent;
+}
+
+#imageHover {
+    float: left;
+
+    position: relative;
+    border: 2px solid #cdcdbc;
+    background-image: url("editor_bg.png");
+
+}
+
+#imageHover img {
+    max-width: 500px;
+    max-height: 500px;
+}

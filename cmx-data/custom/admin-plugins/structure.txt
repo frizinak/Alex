@@ -1,0 +1,38 @@
+function PluginName() {
+}
+
+PluginName.prototype.id = null;
+
+//executed whenever a page is clicked and has a template that references this plugin;
+PluginName.prototype.generate_form = function (tpl, page, id) {
+    this.id = id;
+
+    var ret = 'optional-css';
+    ret += 'html <div class="myClass"></div>';
+    return ret;
+
+};
+
+//executed after your html has been added to the dom
+PluginName.prototype.generated_form = function () {
+    //js for dom manipulation, can use jquery
+    //note: ALWAYS use this.id before selecting something from your generated html like so:  $('#' + this.id + ' .myClass')
+    //note2: unbind and rebind eventHandlers as regenerating the editor-form deletes and regenerates all dom element in the form.
+
+    $('#' + this.id + ' .myClass').unbind().click(function (e) {
+
+    });
+}
+
+//executed when user presses submit and all form elements are read
+PluginName.prototype.submit_form = function () {
+    //whatever you return will go into the page.json
+    ret = '';
+    return ret;
+};
+
+//add the plugin so it's available.
+//typeofplugin should be a unique string (unique per plugin) to be referenced by Template.json files
+//note PluginName is a reference not a string!
+App.add_plugin('typeofplugin', PluginName);
+

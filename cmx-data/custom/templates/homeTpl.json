@@ -1,0 +1,34 @@
+{
+    "template": "homeTpl",
+    "tplData" : {
+        "title"  : {
+            "label"      : "titel",
+            "description": "titel jaja oopsie",
+            "type"       : "text",
+            "default"    : "title"
+        },
+        "content": {
+            "label"      : "inhoud",
+            "description": "inhoud lorem ipsum dida",
+            "type"       : "textarea",
+            "default"    : "title"
+        },
+        "test1"  : {
+            "label"      : "test",
+            "description": "testcheckbox",
+            "type"       : "checkbox",
+            "values"     : ["chk", "nochk"],
+            "default"    : "chk"
+
+        },
+        "test2"  : {
+            "label"      : "radiotest",
+            "description": "test for radiobuttons",
+            "type"       : "radio",
+            "labels"     : ["btn1", "btn2", "btn3"],
+            "values"     : ["btn1chk", "btn2chk", "btn3chk"],
+            "default"    : "btn2chk"
+
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "template":"blogTpl",
+    "tplData":{
+        "title":{
+            "label":"title",
+            "description":"page title",
+            "type":"text",
+            "default":"blog"
+        },
+        "content":{
+            "label":"description",
+            "description":"header text",
+            "type":"textarea",
+            "default":"this is my blog"
+        }
+    }
+}

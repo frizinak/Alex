@@ -1,0 +1,23 @@
+{
+    "template":"blogPostTpl",
+    "tplData":{
+        "title":{
+            "label":"title",
+            "description":"blog post title",
+            "type":"text",
+            "default":"my first blog post"
+        },
+        "descr":{
+            "label":"description",
+            "description":"short description of this post",
+            "type":"text",
+            "default":""
+        },
+        "content":{
+            "label":"content",
+            "description":"main post text",
+            "type":"textarea",
+            "default":""
+        }
+    }
+}
