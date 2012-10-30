@@ -30,4 +30,4 @@ Installation
 
 Simply download the source and edit .htaccess and Config.class.php to match your directory
 
-![admin-panel editor](docs/images/admin_editor.jpg)
+![admin-panel editor](https://raw.github.com/frizinak/Alex/master/docs/images/admin_editor.jpg)
