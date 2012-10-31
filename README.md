@@ -3,7 +3,7 @@ Cms-Alex (cmx)
 
 File-based end-user oriented CMS
 
-**[Docs and tutorials](wiki/Overview)**
+**[Docs and tutorials](https://github.com/frizinak/Alex/wiki)**
 
 
 
