@@ -5,6 +5,7 @@
 
     <title>admin</title>
     <link type="text/css" rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <script type="text/javascript" src="js/utils/jqy.js"></script>
     <?php if (Admin::$logged): ?>
     <script type="text/javascript" src="js/languages/<?php echo Admin::$lang; ?>.js"></script>

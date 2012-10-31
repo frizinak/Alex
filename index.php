@@ -100,7 +100,7 @@ class Index
             $cached = Utils::get_cache('pages/' . $lang . Cmx::$pageObject['file'] . '.htm');
             if ($cached !== false) {
                 echo $cached;
-                echo Config::$showTimers ? ' ' . (floor((microtime(true) - Index::$scriptStart) * 100000) / 100) . 'ms cache':'';
+                echo Config::$showTimers ? ' ' . (floor((microtime(true) - Index::$scriptStart) * 100000) / 100) . 'ms cache' : '';
                 die();
             }
         }
@@ -129,7 +129,7 @@ class Index
                 echo $output;
                 // Config::$fullSiteCache ? Utils::save_ob('pages/' . $lang . Cmx::$pageObject['file'] . '.htm', Config::$globalCacheTime) : '';
                 Config::$fullSiteCache ? Utils::string_to_cache('pages/' . $lang . Cmx::$pageObject['file'] . '.htm', $output, Config::$globalCacheTime) : '';
-                echo Config::$showTimers ? ' ' . (floor((microtime(true) - Index::$scriptStart) * 100000) / 100) . 'ms':'';
+                echo Config::$showTimers ? ' ' . (floor((microtime(true) - Index::$scriptStart) * 100000) / 100) . 'ms' : '';
             } else {
                 $pattern = '/Parse error(.*?)in (.*?)\((.*?)\)/';
                 preg_match_all($pattern, $output, $errors);
