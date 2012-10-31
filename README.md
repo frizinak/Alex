@@ -3,7 +3,8 @@ Cms-Alex (cmx)
 
 File-based end-user oriented CMS
 
-_Migrating Wiki's from http://code.google.com/p/cmx/ to https://github.com/frizinak/Alex/wiki_
+**[Docs and tutorials](wiki/Overview)**
+
 
 
 Early stages of a file-based CMS. I started this project out of necessity for a simple to customize and flexible CMS for my clients.
