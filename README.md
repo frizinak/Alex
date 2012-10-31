@@ -3,7 +3,8 @@ Cms-Alex (cmx)
 
 File-based end-user oriented CMS
 
-_Migrating Wiki's from http://code.google.com/p/cmx/ to https://github.com/frizinak/Alex/wiki_
+**[Docs and tutorials](https://github.com/frizinak/Alex/wiki/Overview)**
+
 
 
 Early stages of a file-based CMS. I started this project out of necessity for a simple to customize and flexible CMS for my clients.
@@ -28,6 +29,8 @@ If you are interested in this project, and would like to comment/contribute/... 
 Installation
 ============
 
-Simply download the source and edit .htaccess and Config.class.php to match your directory
+Simply download the source and edit .htaccess and Config.class.php to match your directory.
+
+<a href="/frizinak/Alex/zipball/master" class="minibutton" icon_class="mini-icon-download" rel="nofollow" title="Download this repository as a zip file"><span class="mini-icon mini-icon-download"></span>ZIP</a>
 
 ![admin-panel editor](https://raw.github.com/frizinak/Alex/master/docs/images/admin_editor.jpg)
