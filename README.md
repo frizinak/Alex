@@ -28,6 +28,8 @@ If you are interested in this project, and would like to comment/contribute/... 
 Installation
 ============
 
-Simply download the source and edit .htaccess and Config.class.php to match your directory
+Simply download the source and edit .htaccess and Config.class.php to match your directory.
+
+<a href="/frizinak/Alex/zipball/master" class="minibutton" icon_class="mini-icon-download" rel="nofollow" title="Download this repository as a zip file"><span class="mini-icon mini-icon-download"></span>ZIP</a>
 
 ![admin-panel editor](https://raw.github.com/frizinak/Alex/master/docs/images/admin_editor.jpg)
