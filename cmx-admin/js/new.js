@@ -12,8 +12,7 @@ function AddRem() {
 
 AddRem.allTpls = null;
 AddRem.allPages = null;
-AddRem.pagesSelect=null;
-
+AddRem.pagesSelect = null;
 
 AddRem.init = function () {
     $('#pageDescr').html(text.PageDescrNew);
@@ -30,20 +29,19 @@ AddRem.reload = function () {
         return;
     }
     AddRem.allPages = [];
-    AddRem.pagesSelect=[];
+    AddRem.pagesSelect = [];
     (function flatten(parent, indent) {
         for (key in parent.subpages) {
             if (parent.subpages.hasOwnProperty(key)) {
                 AddRem.allPages.push(parent.subpages[key].page);
                 AddRem.pagesSelect.push([indent + parent.subpages[key].page, parent.subpages[key].page]);
                 if (parent.subpages[key].hasOwnProperty('subpages')) {
-                    var newindent = "".rpad('&nbsp;', (indent.length*12));
+                    var newindent = "".rpad('&nbsp;',indent.length + 12);
                     flatten(parent.subpages[key], newindent + '|_');
                 }
             }
         }
     }(cmx.pageTree.pages, ''));
-
     $('#page-form').empty();
     AddRem.generate_form();
 };
@@ -55,7 +53,7 @@ AddRem.generate_form = function () {
     html += '<label data-title="' + text.LblPageParentHelp + '">' + text.LabelParent + '</label>';
     html += '<select id="parentname"><option>' + text.NoParent + '</option>';
     for (key in AddRem.pagesSelect) {
-        html += '<option value="'+AddRem.pagesSelect[key][1]+'">' + AddRem.pagesSelect[key][0] + '</option>'
+        html += '<option value="' + AddRem.pagesSelect[key][1] + '">' + AddRem.pagesSelect[key][0] + '</option>';
     }
     html += '</select>';
 
