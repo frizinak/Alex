@@ -5,6 +5,7 @@ class Utils
     {
     }
 
+    // fopen and chmod each dir and the file
     public static function fopen_recursive($path, $mode, $chmod = 0755, $fchmod = 0644)
     {
         $directory = explode('/', $path);
@@ -29,10 +30,10 @@ class Utils
         return $ret;
     }
 
+    //save an opened ob
     public static function save_ob($filename, $ttl)
     {
-        Utils::string_to_cache($filename, ob_get_contents(), $ttl);
-        ob_end_flush();
+        Utils::string_to_cache($filename, ob_get_flush(), $ttl);
     }
 
     public static function string_to_cache($filename, $string, $ttl)
@@ -62,7 +63,6 @@ class Utils
             if ($file === false) {
                 return false;
             }
-            //$arr = explode('--ENDTIMESTAMP--', $file);
             return $file;
         }
         // no apc
@@ -81,7 +81,6 @@ class Utils
         $pageCache = $cache ? Utils::get_cache("core/flatpagecache.json") : false;
 
         if ($pageCache !== false) {
-            Cmx::$flatPages = array();
             Cmx::$flatPages = json_decode($pageCache, true);
         } else {
             Cmx::$flatPages = array();
@@ -105,21 +104,10 @@ class Utils
                 $pageName = $page['page'];
 
                 Cmx::$flatPages[$pageName] = $temp;
-                //Cmx::$flatPages[$page->page]->rawTree=$page;
                 Cmx::$flatPages[$pageName]['url'] = $url . $pageName;
                 Cmx::$flatPages[$pageName]['order'] = $order;
                 Cmx::$flatPages[$pageName]['parent'] = $parent['page'];
-//                Cmx::$flatPages[$pageName]['pageInfo'] = null;
                 Cmx::$flatPages[$pageName]['published'] = in_array($pageName, Cmx::$pages['pagesList']);
-
-                /*$file = @file_get_contents(Config::$pagesDir . '/' . Cmx::$flatPages[$pageName]['file'] . '.json');
-                $fileobj = null;
-                if ($file !== false) {
-                    $fileobj = json_decode($file, true);
-                }
-                if ($fileobj !== false) {
-                    Cmx::$flatPages[$pageName]['pageInfo'] = $fileobj;
-                } */
                 self::parse_page($page, $url . $pageName . '/');
                 $order++;
             }
@@ -180,11 +168,6 @@ class Utils
         return $string;
 
     }
-
-    /*public static function empty_cache_dir()
-    {
-        self::empty_dir(Config::$cacheDir . '/'); //do not change!
-    }*/
 
     public static function empty_dir($dir)
     {

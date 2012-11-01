@@ -1,23 +1,27 @@
 <?php
 class Cmx
 {
-    public static $pageContent = null; //  raw html/php from template
-    public static $pages = null; //  data/pages.json
-    public static $pageObject = null; //  object in pages
-
-    public static $flatPages = array(); // 1dimensional version of $pages
-
+    //  raw html/php from template
+    public static $pageContent = null;
+    //  data/pages.json
+    public static $pages = null;
+    //  current page object
+    public static $pageObject = null;
+    // 1dimensional version of $pages
+    public static $flatPages = array();
+    // last part of the request: page title
     public static $requestPage = '';
+    // all parts of the request, e.g.: /home/subpage/blog = array(home,subpage,blog)
     public static $requestParts = array();
-
+    // 2-letter code
     public static $language = '';
 
     private function __construct()
     {
-
+          // static object, no need to instantiate.
     }
 
-
+    // returns page object
     public static function get_page($name = null)
     {
         if ($name === null) {
@@ -29,6 +33,7 @@ class Cmx
         return false;
     }
 
+    // returns template variables of specified page
     public static function get_content($name = null)
     {
         $p = self::get_page($name);
@@ -45,6 +50,7 @@ class Cmx
         return false;
     }
 
+    //returns a page url which can be used anywhere.
     public static function get_page_url($name = null)
     {
         $p = self::get_page($name);
@@ -60,6 +66,14 @@ class Cmx
         return false;
     }
 
+    // param url = relative to index.php (and as show when clicking an image in back-end (e.g upload/myimg.jpg))
+    // param $w & $h = resize image to these dimensions, if maintainAspectRation=false: resize $w x $h, else: resize assumes $w = maximum width and $h = maximum height
+
+    // return depends on $w, $h and $maintainAspect
+    // $w=$h=0; returns image from uploadDir
+    // $w!=0 || $h!=0 returns image from uploadDir if it has been preresized (during upload) or from cacheDir if it has been resized after uploading
+    // otherwise resizes it and stores in in cacheDir
+    // return = array(htmlUrl,realWidth,realHeight,htmlString), htmlUrl = ready to be used in templates, htmlString = 'width="int" height="int"'
     public static function get_img($url, $w = 0, $h = 0, $maintainAspectRatio = true)
     {
         //check if url is valid

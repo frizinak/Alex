@@ -87,9 +87,8 @@ class Index
         }
         Cmx::$requestPage = Cmx::$requestParts[count(Cmx::$requestParts) - 1];
         Utils::parse_pages(); // multidim cmx::$pages -> singledim cmx::flatPages
-        Cmx::$pageObject = isset(Cmx::$flatPages[Cmx::$requestPage]) ? Cmx::$flatPages[Cmx::$requestPage] : false;
+        Cmx::$pageObject = isset(Cmx::$flatPages[Cmx::$requestPage]) && Cmx::$flatPages[Cmx::$requestPage]['url']===implode('/',Cmx::$requestParts) ? Cmx::$flatPages[Cmx::$requestPage] : false;
         Config::$fullSiteCache = (Cmx::$pageObject !== false && Config::$fullSiteCache && (!isset(Cmx::$pageObject['cache']) || Cmx::$pageObject['cache'] !== "false"));
-
     }
 
     private static function show_page()
@@ -116,18 +115,15 @@ class Index
                     Cmx::$pageContent = TplParser::make_tpl(Config::$dataDir . '/custom/templates/' . Cmx::$pageObject['pageInfo']['template'] . '.php', Cmx::$pageObject['pageInfo']['tplData']);
                     Utils::string_to_cache('core/tpl/' . Cmx::$pageObject['file'] . '.php', Cmx::$pageContent, Config::$tplCacheTime);
                 }
-
             }
         }
 
         if (Cmx::$pageContent !== false) {
-            //Config::$fullSiteCache ? ob_start() : '';
             ob_start();
             $check = self::runEval(Cmx::$pageContent);
             $output = ob_get_clean();
             if ($check !== false || Config::$debug) {
                 echo $output;
-                // Config::$fullSiteCache ? Utils::save_ob('pages/' . $lang . Cmx::$pageObject['file'] . '.htm', Config::$globalCacheTime) : '';
                 Config::$fullSiteCache ? Utils::string_to_cache('pages/' . $lang . Cmx::$pageObject['file'] . '.htm', $output, Config::$globalCacheTime) : '';
                 echo Config::$showTimers ? ' ' . (floor((microtime(true) - Index::$scriptStart) * 100000) / 100) . 'ms' : '';
             } else {
@@ -135,7 +131,6 @@ class Index
                 preg_match_all($pattern, $output, $errors);
                 throw new CustomException(0, (isset($errors[1]) ? $errors[1][0] : ''), 'index/eval', 0, null);
             }
-
             die();
         } else {
             self::show_404();
@@ -144,11 +139,13 @@ class Index
 
     private static function runEval($tpl)
     {
+        //unset $tpl to keep scope clean
         return eval(' unset($tpl); ?>' . $tpl . '<?php ');
     }
 
     private static function set_custom_handlers()
     {
+        //encourage clean code.
         error_reporting(E_ALL);
         set_error_handler('EHandler::error_handler');
         set_exception_handler('EHandler::exception_handler');
@@ -160,12 +157,11 @@ class Index
         echo file_get_contents(Config::$dataDir . '/custom/404.html');
         die();
     }
-
-
 }
 
-/*
 
+
+//cache debugging function to check cache when apc is enabled
 function showCache() {
   $cachedKeys = new APCIterator('user', '/^cmx_cache_/', APC_ITER_VALUE);
 
@@ -175,5 +171,5 @@ function showCache() {
   }
   echo "-------------\n</pre>";
 }
-  */
+
 Index::init();

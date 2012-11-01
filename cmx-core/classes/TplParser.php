@@ -33,7 +33,6 @@ class TplParser
             $m = substr($match, 2, count($match) - 3);
             $var = '';
             if (isset($data[$m])) {
-                //$var = utf8_decode($data[$m]);
                 $var = $data[$m];
                 if (!is_string($var)) {
                     $var = '';
@@ -51,8 +50,6 @@ class TplParser
 
                 if (Config::$allowPHP) {
                     //in case html is off but we still wanna allow the user to write some logic
-                    //I personally will never allow the user to write php, probably not even allow most html
-                    //Perhaps write an extra regex to allow basic layout tags like: <p>, <a>, <h1>,...
                     $var = str_replace(array('&lt;?php', '?&gt'), array('<?php', '?>'), $var);
                 }
             }
