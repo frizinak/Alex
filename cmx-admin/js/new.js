@@ -60,7 +60,7 @@ AddRem.generate_form = function () {
     html += '<label data-title="' + text.LblTplHelp + '">' + text.LabelTemplate + '</label>';
     html += '<select id="tplfile" name="parent">';
     for (key in AddRem.allTpls) {
-        html += '<option>' + AddRem.allTpls[key] + '</option>'
+        html += '<option>' + AddRem.allTpls[key] + '</option>';
     }
     html += '</select><br/>';
     html += '<a id="submitnewform" href="#">' + text.CreateBtn + '</a><div class="clear"></div>';

@@ -239,10 +239,10 @@ Editor.generate_form = function (pageData, tplData) {
             input = "";
             switch (tpl.type) {
             case 'text':
-                input = '<label data-title="' + tpl.description + '">' + tpl.label + '</label><br/><input class="tplvar" name="' + key + '" type="text" value="' + (pageData === undefined ? tpl['default'] : (htmlentities($.isPlainObject(pageData[key]) ? '' : pageData[key]))) + '" /><br/>';
+                input = '<label data-title="' + tpl.description + '">' + tpl.label + '</label><br/><input class="tplvar" name="' + key + '" type="text" value="' + htmlentities(pageData[key]) + '" /><br/>';
                 break;
             case 'textarea':
-                input = '<label data-title="' + tpl.description + '">' + tpl.label + '</label><br/><textarea class="tplvar" name="' + key + '" rows="8" cols="40" >' + (pageData === undefined ? tpl['default'] : (htmlentities($.isPlainObject(pageData[key]) ? '' : pageData[key]))) + '</textarea><br/>';
+                input = '<label data-title="' + tpl.description + '">' + tpl.label + '</label><br/><textarea class="tplvar" name="' + key + '" rows="8" cols="40" >' + htmlentities(pageData[key]) + '</textarea><br/>';
                 break;
             case 'checkbox':
                 checked = ((pageData === undefined || pageData[key] === undefined || $.isPlainObject(pageData[key])) && tpl['default'] === tpl['values'][0]) || pageData[key] === tpl['values'][0];
@@ -256,16 +256,13 @@ Editor.generate_form = function (pageData, tplData) {
                     checked = ((pageData === undefined || pageData[key] === undefined || $.isPlainObject(pageData[key])) && tpl['default'] === tpl['values'][i]) || pageData[key] === tpl['values'][i];
                     input += '<label class="rdlbl">' + tpl.labels[i] + '</label>';
                     input += '<span class="radio' + (checked ? ' checked' : '') + '"></span>'
-                    input += '<input class="tplvar" type="radio" value="' + tpl.values[i] + '" name="' + key + '" ' + (checked ? 'checked="checked"' : '') + ' /><br/>'
+                    input += '<input class="tplvar" type="radio" value="' + tpl.values[i] + '" name="' + key + '" ' + (checked ? 'checked="checked"' : '') + ' /><br/>';
                 }
                 input += '</div>';
                 break;
             default:
                 if (App.plugins.hasOwnProperty(tpl.type)) {
                     var plugin = new App.plugins[tpl.type]();
-                    if ($.isPlainObject(pageData[key])) {
-                        pageData[key] = tpl['default'];
-                    }
                     input = '<span id="' + key + '">' + plugin.generate_form(tpl, pageData[key], key) + '</span>';
                     Editor.plugins.push(plugin);
                 }

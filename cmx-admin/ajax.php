@@ -62,6 +62,11 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 
             $fn = Utils::safe_filename($_POST['makepage'], 'json', '../' . Config::$dataDir . '/pages');
             $data = @file_get_contents('../' . Config::$dataDir . '/custom/templates/' . $_POST['tpl'] . '.json');
+            $object = json_decode($data);
+            foreach ($object->tplData as &$tplVar) {
+                $tplVar = $tplVar->default;
+            }
+            $data=json_encode($object);
             $file = @Utils::fopen_recursive('../' . Config::$dataDir . '/pages/' . $fn, 'w', Config::$newDirMask, Config::$newFileMask);
             if ($file !== false && $data !== false) {
                 fwrite($file, $data);
