@@ -10,7 +10,6 @@ class Admin
     public static $lang = '';
     public static $langs = array();
     public static $logged = false;
-
     public static $backupFile = array();
 }
 
