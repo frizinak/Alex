@@ -1,23 +1,29 @@
 {
     "template": "AgendaTpl",
     "tplData" : {
-        "title": {
+        "title"      : {
             "label"      : "titel",
             "description": "titel jaja oopsie",
             "type"       : "text",
             "default"    : "title"
         },
-        "ag"   : {
+        "ag"         : {
             "label"      : "agenda",
             "description": "plugintest",
             "type"       : "testAg",
             "default"    : ""
         },
-        "ag2"  : {
+        "ag2"         : {
             "label"      : "agenda2",
-            "description": "plugintest2",
+            "description": "plugintest",
             "type"       : "testAg",
-            "default"    : ""
+            "default"    : "0001111000"
+        },
+        "rich editor": {
+            "label"      : "tiny mce",
+            "description": "Tiny_Mce",
+            "type"       : "richtextarea",
+            "default"    : "<h1>aha</h1>"
         }
 
     }

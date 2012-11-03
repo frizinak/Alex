@@ -21,7 +21,7 @@
             echo '<script type="text/javascript" src="'.$plugin.'"></script>';
         }
         ?>
-
+        <script type="text/javascript" src="js/utils/tiny_mce/tiny_mce.js"></script>
         <script type="text/javascript" src="js/editor.js"></script>
         <?php elseif (Admin::$page === 'new'): ?>
         <script type="text/javascript" src="js/new.js"></script>

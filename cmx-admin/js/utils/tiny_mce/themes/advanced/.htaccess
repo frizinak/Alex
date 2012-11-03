@@ -1,0 +1,5 @@
+<FilesMatch "html?$">
+ Order Deny,Allow
+</FilesMatch>
+
+

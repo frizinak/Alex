@@ -26,13 +26,13 @@ RewriteCond %{REQUEST_FILENAME} !-d
 IndexIgnore *
 
 # deny all
-<FilesMatch ".(htaccess|htpasswd|json|htm?|php)$">
+<FilesMatch "\.(htaccess|htpasswd|json|html?|php)$">
  Order Allow,Deny
 </FilesMatch>
 
 
 #allow all
-<FilesMatch "(index\.php|ajax\.php)$">
+<FilesMatch "(index|ajax)\.php$">
  Order Deny,Allow
 </FilesMatch>
 
