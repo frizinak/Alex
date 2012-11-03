@@ -232,7 +232,6 @@ Editor.generate_form = function (pageData, tplData) {
 
     var pluginCallbacks = [];
     editorForm.append(parentSelectString + '</select><br/>');
-    var richText = false;
 
     for (key in tplData) {
         if (tplData.hasOwnProperty(key)) {
@@ -243,9 +242,10 @@ Editor.generate_form = function (pageData, tplData) {
                 input = '<label data-title="' + tpl.description + '">' + tpl.label + '</label><br/><input class="tplvar" name="' + key + '" type="text" value="' + htmlentities(pageData[key]) + '" /><br/>';
                 break;
             case 'richtextarea':
-                richText = true;
+                input = '<label data-title="' + tpl.description + '">' + tpl.label + '</label><br/><textarea class="tplvar rich" name="' + key + '" rows="8" cols="40" >' + htmlentities(pageData[key]) + '</textarea><br/>';
+                break;
             case 'textarea':
-                input = '<label data-title="' + tpl.description + '">' + tpl.label + '</label><br/><textarea class="tplvar' + (richText ? ' rich' : '') + '" name="' + key + '" rows="8" cols="40" >' + htmlentities(pageData[key]) + '</textarea><br/>';
+                input = '<label data-title="' + tpl.description + '">' + tpl.label + '</label><br/><textarea class="tplvar" name="' + key + '" rows="8" cols="40" >' + htmlentities(pageData[key]) + '</textarea><br/>';
                 break;
             case 'checkbox':
                 checked = ((pageData === undefined || pageData[key] === undefined || $.isPlainObject(pageData[key])) && tpl['default'] === tpl['values'][0]) || pageData[key] === tpl['values'][0];
