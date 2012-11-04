@@ -9,6 +9,7 @@
 //  MESSAGE
 //
 */
+
 /*
 a
 {
@@ -444,6 +445,12 @@ body {
     font-size: 11px;
     margin: 20px 30px 20px 25px;
     position: relative;
+}
+
+.pluginContainer
+{
+    display: block;
+    margin: 10px 0 10px 0;
 }
 
 #editor label, #newpage label, #uploadwrapper label {

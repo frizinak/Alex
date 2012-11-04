@@ -230,7 +230,6 @@ Editor.generate_form = function (pageData, tplData) {
         }
     }
 
-    var pluginCallbacks = [];
     editorForm.append(parentSelectString + '</select><br/>');
 
     for (key in tplData) {
@@ -266,7 +265,7 @@ Editor.generate_form = function (pageData, tplData) {
             default:
                 if (App.plugins.hasOwnProperty(tpl.type)) {
                     var plugin = new App.plugins[tpl.type]();
-                    input = '<span id="' + key + '">' + plugin.generate_form(tpl, pageData[key], key) + '</span>';
+                    input = '<span class="pluginContainer" id="' + key + '">' + plugin.generate_form(tpl, pageData[key], key) + '</span>';
                     Editor.plugins.push(plugin);
                 }
                 break;

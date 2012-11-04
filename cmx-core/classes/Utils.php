@@ -38,6 +38,9 @@ class Utils
 
     public static function string_to_cache($filename, $string, $ttl)
     {
+        if ($ttl < 1) {
+            return;
+        }
         // apc
         if (Config::$useAPC && extension_loaded('apc')) {
             $stored = apc_store('cmx_cache_' . $filename, $string, $ttl);
