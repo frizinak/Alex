@@ -11,6 +11,9 @@ class Config
     //salt for useragent validation (extra measure to prevent session hijacking)
     public static $salt = '123aze';
 
+    //salt for passwords;
+    public static $pwSalt = 'b9mx8mEq2EW9Yk0tI9iM';
+
     //allow html input in backend to be shown in frontend
     public static $allowHTML = true;
 

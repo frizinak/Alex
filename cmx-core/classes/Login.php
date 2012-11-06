@@ -46,6 +46,7 @@ class Login
 
     public static function prepare_session()
     {
+        session_regenerate_id(true);
         $_SESSION['key'] = Utils::random_string(15);
         $_SESSION['logged'] = false;
         $_SESSION['age'] = 0;

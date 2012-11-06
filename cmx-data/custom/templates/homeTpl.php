@@ -5,7 +5,7 @@
     <?php
     //aze
 
-    echo nl2br(Cmx::$pageObject['pageInfo']['tplData']['content'], true);
+    echo nl2br(Cmx::$pageObject['pageInfo']['tplData']['content']);
     /*$paragraphs = explode("\n\n", Cmx::$pageObject['pageInfo']['tplData']['content']);
     //fopen('azeaze','r');
     foreach ($paragraphs as $para) {
