@@ -2,10 +2,11 @@
 
 if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     session_start();
-//    usleep(3000000);
     require_once('../Config.class.php');
     require_once('../' . Config::$coreDir . '/classes/Utils.php');
-    $logged = isset($_SESSION['logged']) && $_SESSION['logged'] === true && isset($_SESSION['age']) && microtime(true) - $_SESSION['age'] < Config::$sessionExpiry && isset($_SESSION['ua']) && $_SESSION['ua'] === sha1($_SERVER['HTTP_USER_AGENT'] . Config::$salt);
+    require_once('../' . Config::$coreDir . '/classes/Login.php');
+
+    $logged = Login::is_logged();//isset($_SESSION['logged']) && $_SESSION['logged'] === true && isset($_SESSION['age']) && microtime(true) - $_SESSION['age'] < Config::$sessionExpiry && isset($_SESSION['ua']) && $_SESSION['ua'] === sha1($_SERVER['HTTP_USER_AGENT'] . Config::$salt);
 
     if ($logged) {
 

@@ -9,7 +9,10 @@ class Config
     public static $sessionExpiry = 3600;
 
     //salt for useragent validation (extra measure to prevent session hijacking)
-    public static $salt = '123aze';
+    public static $salt = 'pfy26udK1qgOBv5cCnwU';
+
+    //password noise
+    public static $pwSalt = 'VzAVKtFAixn8B0rZq32k';
 
     //allow html input in backend to be shown in frontend
     public static $allowHTML = true;

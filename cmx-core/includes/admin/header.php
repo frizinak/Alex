@@ -5,7 +5,7 @@
 
     <title>admin</title>
     <link type="text/css" rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
     <script type="text/javascript" src="js/utils/jqy.js"></script>
     <?php if (Admin::$logged): ?>
     <script type="text/javascript" src="js/languages/<?php echo Admin::$lang; ?>.js"></script>
@@ -18,7 +18,7 @@
         <?php
         $plugins = glob('../' . Config::$dataDir . '/custom/admin-plugins/*.js');
         foreach ($plugins as $plugin) {
-            echo '<script type="text/javascript" src="'.$plugin.'"></script>';
+            echo '<script type="text/javascript" src="' . $plugin . '"></script>';
         }
         ?>
         <script type="text/javascript" src="js/utils/tiny_mce/tiny_mce.js"></script>
@@ -29,7 +29,7 @@
         <script type="text/javascript" src="js/upload.js"></script>
         <?php endif; ?>
     <?php else: ?>
-    <script type="text/javascript" src="js/utils/sha.js"></script>
+    <!--<script type="text/javascript" src="js/utils/sha.js"></script>-->
     <script type="text/javascript" src="js/login.js"></script>
     <?php endif; ?>
 </head>

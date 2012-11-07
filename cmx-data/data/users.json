@@ -1,4 +1,10 @@
 {
-   "kobe":"a304f4c4bc300d6896bf7fa0bb3496b33cd6e8ed",
-    "admin":"a304f4c4bc300d6896bf7fa0bb3496b33cd6e8ed"
+    "kobe" : {
+        "pw"  : "5bf69e30297b757066ff5e9507d83971db44237e",
+        "salt": "cc41bba5cb215af971fa3d59773ea0cb"
+    },
+    "admin": {
+        "pw"  : "47eb768c33d9484b1f063ae7459bef5ad1b4aa59",
+        "salt": "f99c838a6f00db39c9ce5df813331f6f"
+    }
 }

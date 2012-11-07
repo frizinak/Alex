@@ -8,13 +8,8 @@ class Login
         $passwords = json_decode(file_get_contents('../' . Config::$dataDir . '/data/users.json'), true);
         if (isset($passwords[$_POST['username']])) {
             session_regenerate_id(true);
-            //server provides client with random string ($_SESSION['key']) on each page load
-            //salt = 'VzAVKtFAixn8B0rZq32k'
-            //client sha1(sha1(password+salt)+randomstring)
-            //server reads users.json and sha1($_post['password'])+randomstring)
-            //users.json has sha1(password+salt)
-            // note: the salt is sent to every user in login.js so is no security measure, it's there to prevent saving raw / sha-reversable strings in a file (user-privacy)
-            if ($_POST['login'] === sha1($passwords[$_POST['username']] . $_SESSION['key'])) {
+
+            if (sha1(sha1($passwords[$_POST['username']]['salt'].$_POST['password']).Config::$pwSalt) === $passwords[$_POST['username']]['pw']) {
                 $_SESSION['logged'] = true;
                 $_SESSION['age'] = microtime(true);
                 $_SESSION['ua'] = sha1($_SERVER['HTTP_USER_AGENT'] . Config::$salt);
@@ -46,8 +41,8 @@ class Login
 
     public static function prepare_session()
     {
-        session_regenerate_id(true);
-        $_SESSION['key'] = Utils::random_string(15);
+        //session_regenerate_id(true);
+        //$_SESSION['key'] = Utils::random_string(15);
         $_SESSION['logged'] = false;
         $_SESSION['age'] = 0;
         $_SESSION['ua'] = '';
