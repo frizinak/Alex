@@ -5,8 +5,8 @@
     <?php
     //aze
 
-    echo nl2br(Cmx::$pageObject['pageInfo']['tplData']['content']);
-    /*$paragraphs = explode("\n\n", Cmx::$pageObject['pageInfo']['tplData']['content']);
+    //echo nl2br(Cmx::$pageObject['pageInfo']['tplData']['content']);
+    $paragraphs = explode("\n\n", Cmx::$pageObject['pageInfo']['tplData']['content']);
     //fopen('azeaze','r');
     foreach ($paragraphs as $para) {
         $para = explode("\n", $para);
@@ -15,7 +15,7 @@
             echo $p . '<br/>';
         }
         echo '</p>';
-    }*/
+    }
 
     $urls = glob('upload/img???.jpg');
     foreach ($urls as $url) {

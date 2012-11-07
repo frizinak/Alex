@@ -34,13 +34,13 @@ class Config
     public static $startSession = true;
 
     //amount of time templates are cached, use 0 when developing
-    public static $tplCacheTime = 0;
+    public static $tplCacheTime = 1;
 
     //amount of time pages are cached, does not affect manual caching
-    public static $globalCacheTime = 0;
+    public static $globalCacheTime = 1;
 
     //enable caching, does not affect manual caching / tplcaching
-    public static $fullSiteCache = false;
+    public static $fullSiteCache = true;
 
     //uses APC instead of files for caching (recommended: true, will fallback to files if APC is not installed)
     public static $useAPC = false;
@@ -67,6 +67,11 @@ class Config
     //all relative to index.php
     public static $uploadDir = "upload";
     public static $adminDir = "cmx-admin";
+
+    // !=upload dir, its a cache for resized images
+    public static $imageDir = "cmx-images";
+
+    //these should be outside public_html
     public static $cacheDir = "cmx-cache";
     public static $coreDir = "cmx-core";
     public static $dataDir = "cmx-data";

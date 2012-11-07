@@ -18,7 +18,7 @@ class Cmx
 
     private function __construct()
     {
-          // static object, no need to instantiate.
+        // static object, no need to instantiate.
     }
 
     // returns page object
@@ -66,7 +66,7 @@ class Cmx
         return false;
     }
 
-    // param url = relative to index.php (and as show when clicking an image in back-end (e.g upload/myimg.jpg))
+    // param url = relative to index.php (and as shown when clicking an image in back-end (e.g upload/myimg.jpg))
     // param $w & $h = resize image to these dimensions, if maintainAspectRation=false: resize $w x $h, else: resize assumes $w = maximum width and $h = maximum height
 
     // return depends on $w, $h and $maintainAspect
@@ -83,7 +83,7 @@ class Cmx
                 return false;
             }
             $aspect = $realDims[0] / $realDims[1];
-            $cacheImages = Config::$cacheDir . '/core/images';
+            $cacheImages = Config::$imageDir . '/';
             //need to resize, if not just return $url relative to root + img dimensions
             if (($w > 0 && $w < $realDims[0]) || ($h > 0 && $h < $realDims[1])) {
                 //unique name based on path+filename =>no collisions when working with same filenames in different directories
