@@ -120,6 +120,12 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
             $content = $delete ? 'success' : 'error';
         }
 
+        if (isset($_POST['deletedir'])) {
+            $dir = str_replace('..', '', $_POST['deletedir']);
+            $delete = @rmdir('../' . Config::$uploadDir . '/'.$dir);
+            $content = $delete ? 'success' : 'error';
+        }
+
         die($content);
     } else {
         die('log');

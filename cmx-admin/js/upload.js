@@ -88,13 +88,26 @@ Upload.init = function () {
     });
 
     $('.deletefile').click(function (e) {
-        var fn = $(e.currentTarget).siblings('a').html()
+        var fn = $(e.currentTarget).siblings('a').html();
         confirm('Are you sure you wish to delete' + fn, function (m) {
             if (m === true) {
                 if (cmx.delete_file($(e.currentTarget).attr('data-del'))) {
                     window.location.reload()
                 } else {
                     notice(text.DeleteFileError, 1);
+                }
+            }
+        });
+    })
+
+    $('.deletedir').click(function (e) {
+        var fn = $(e.currentTarget).siblings('a').html();
+        confirm('Are you sure you wish to delete' + fn, function (m) {
+            if (m === true) {
+                if (cmx.delete_dir($(e.currentTarget).attr('data-del'))) {
+                    window.location.reload();
+                } else {
+                    notice(text.DeleteDirError, 1);
                 }
             }
         });

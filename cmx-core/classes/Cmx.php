@@ -57,7 +57,7 @@ class Cmx
         if ($p !== false) {
             $language = empty(self::$language) ? '' : self::$language . '/';
             if (Config::$seoUrls) {
-                return Config::$siteDir . '/' . $language . $p['url'];
+                return Config::$siteDir . '/' . $language . $p['url'] . '/';
             } else {
                 return Config::$siteDir . '/?cmx-lang=' . self::$language . '&page=' . $p['url'];
             }

@@ -139,7 +139,10 @@
                         $fileString .= ($imgSize !== false ? 'data-width="' . $imgSize[0] . '" data-height="' . $imgSize[1] . '"' : '');
                         $fileString .= ' href="#">&nbsp;&nbsp;' . $filename . '</a><a class="deletefile" data-del="' . trim($dir . '/' . $filename, '/') . '" href="#"></a></span>';
                     } else {
-                        $dirString .= '<a " href="index.php?page=upload&dir=' . $dir . '/' . $filename . '">&gt; ' . $filename . '</a>';
+                        $dirString .= '<span class="filewrap">';
+                        $dirString .= '<a href="index.php?page=upload&dir=' . $dir . '/' . $filename . '">&gt; ' . $filename . '</a>';
+                        $dirString .= '<a class="deletedir" data-del="' . trim($dir . '/' . $filename, '/') . '" href="#"></a></span>';
+                        //$dirString .= '<a " href="index.php?page=upload&dir=' . $dir . '/' . $filename . '">&gt; ' . $filename . '</a>';
 
                     }
                 }

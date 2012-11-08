@@ -69,7 +69,7 @@ class Config
     public static $adminDir = "cmx-admin";
 
     // !=upload dir, its a cache for resized images
-    public static $imageDir = "cmx-images";
+    public static $imageDir = "upload/image-cache";
 
     //these should be outside public_html
     public static $cacheDir = "cmx-cache";

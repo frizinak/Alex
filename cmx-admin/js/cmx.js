@@ -333,4 +333,27 @@ Cmx.prototype.delete_file = function (file) {
     return success;
 };
 
+Cmx.prototype.delete_dir = function (dir) {
+    Cmx.loading(true);
+    var that = this, success = false;
+    $.ajax({
+        type   : 'POST',
+        url    : 'ajax.php',
+        data   : {'deletedir': dir},
+        async  : false,
+        success: function (a, b) {
+            if (b === "success" && a == "success") {
+                success = true;
+            } else {
+                that.ajax_fail(a, b);
+            }
+        },
+        error  : function (a, b, c) {
+            that.ajax_fail(a, b, c);
+        }
+    });
+    Cmx.loading(false);
+    return success;
+};
+
 

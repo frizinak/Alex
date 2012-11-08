@@ -62,5 +62,6 @@ var text = {
     "PageCreateError"         : "Couldn't create file for this page, please check file permissions.",
     "PageCreateStructureError": "Couldn't create page.",
     "DeleteFileError"         : "File could not be deleted.",
+    "DeleteDirError"          : "Directory could not be deleted, make sure it's empty.",
     "CacheClearError"         : "Cache was not cleared"
 };

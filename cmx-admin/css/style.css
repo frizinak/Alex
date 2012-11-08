@@ -447,8 +447,7 @@ body {
     position: relative;
 }
 
-.pluginContainer
-{
+.pluginContainer {
     display: block;
     margin: 10px 0 10px 0;
 }
@@ -463,8 +462,7 @@ body {
     min-width: 100px;
 }
 
-label[data-title]:hover
-{
+label[data-title]:hover {
     cursor: help;
 }
 
@@ -608,8 +606,7 @@ label[data-title]:hover
     padding-left: 20px;
 }
 
-#filesList span.filewrap:hover a.deletefile
-{
+#filesList span.filewrap:hover a.deletefile, #filesList span.filewrap:hover a.deletedir {
     display: block;
 }
 
@@ -627,7 +624,7 @@ label[data-title]:hover
     background-color: #030c16;
 }
 
-#filesList a.deletefile {
+#filesList a.deletefile, #filesList a.deletedir {
     display: none;
     opacity: 0.7;
     background-image: url('delete.png');
@@ -639,7 +636,7 @@ label[data-title]:hover
     left: 5px;
 }
 
-#filesList a.deletefile:hover {
+#filesList a.deletefile:hover, #filesList a.deletedir:hover {
     background-position: 10px 0;
     background-color: transparent;
 }

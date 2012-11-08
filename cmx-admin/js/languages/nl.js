@@ -61,7 +61,8 @@ var text = {
     "PageNameDupe"            : "Er bestaat reeds een pagina met deze naam, gelieve een andere te kiezen.",
     "PageCreateError"         : "Er kon geen bestand worden aangemaakt, gelieve bestands permissies na te kijken.",
     "PageCreateStructureError": "Kon pagina niet aanmaken.",
-    "DeleteFileError"         : "Bestand kon niet worder verwijdert.",
+    "DeleteFileError"         : "Bestand kon niet worden verwijderd.",
+    "DeleteDirError"          : "Map kon niet worden verwijderd, zorg dat deze leeg is.",
     "CacheClearError"         : "Cache kon niet worden leeg gemaakt."
 
 };
