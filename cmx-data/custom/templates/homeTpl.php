@@ -1,13 +1,30 @@
 [[header.html]]
 <h1>{{title}}</h1>
+<?php if (Cmx::$pageObject['page'] === Config::$homepage): ?>
+<form action="<?php echo Cmx::get_page_url(); ?>" method="post">
+    <input type="text" name="search"/>
+    <input type="submit" value="search"/>
+</form>
+<?php endif; ?>
 
 <div id="content">
     <?php
-    //aze
+    if (isset($_POST['search']) && strlen(trim($_POST['search'])) > 0) {
+        $results = Cmx::search($_POST['search'], 'all');
+        if (count($results) > 0) {
 
-    //echo nl2br(Cmx::$pageObject['pageInfo']['tplData']['content']);
+            echo 'results:<br/>';
+            foreach ($results as $page => $result) {
+                echo '<p><a href="' . Cmx::get_page_url($page) . '">' . $page . '</a><br/>';
+                echo $result[0]['text'] . '</p>';
+            }
+        } else
+        {
+            echo 'no results.';
+        }
+        echo '<br/><br/><br/>';
+    }
     $paragraphs = explode("\n\n", Cmx::$pageObject['pageInfo']['tplData']['content']);
-    //fopen('azeaze','r');
     foreach ($paragraphs as $para) {
         $para = explode("\n", $para);
         echo '<p>';
@@ -25,15 +42,6 @@
         }
         break;
     }
-
-    /*var_dump(Cmx::$flatPages);
-    foreach(Cmx::$flatPages as $page)
-    {
-        var_dump(Cmx::get_page($page['page']));
-        var_dump(Cmx::get_content($page['page']));
-
-    }*/
-
 
     ?>
 </div>

@@ -66,6 +66,52 @@ class Cmx
         return false;
     }
 
+    public static function search($term, $pages = 'all', $maxResults = 1000)
+    {
+        $results = array();
+        $term = preg_quote($term);
+
+        $haystack = self::$flatPages;
+        $publishedOnly = false;
+        if ($pages === 'published') {
+            $publishedOnly = true;
+        } else if (is_array($pages)) {
+            $haystack = $pages;
+        } else if ($pages !== 'all') {
+            return false;
+        }
+        foreach ($haystack as $page) {
+            $page = self::get_page((is_array($page) && isset($page['page']) ? $page['page'] : $page));
+            if ($page === false || ($publishedOnly && $page['published'] !== true)) {
+                continue;
+            }
+            $pageContent = self::get_content($page['page']);
+            foreach ($pageContent['tplData'] as $k => $entry) {
+                $matches = array();
+                $entry=strip_tags($entry);
+                preg_match_all('/' . $term . '/i', $entry, $matches);
+                if (count($matches[0]) > 0) {
+
+                    $index = strpos(strtolower($entry), strtolower($term)) - 20;
+                    $index = $index < 0 ? 0 : $index;
+                    $entry = ($index > 0 ? '...' : '') . substr($entry, $index, 40 + strlen($term)) . ($index + 40 + strlen($term) >= strlen($entry) ? '' : '...');
+                    if (isset($results[$page['page']])) {
+
+                        $results[$page['page']][] = array('tplVar' => $k, 'text' => $entry);
+                    } else {
+                        $results[$page['page']] = array(array('tplVar' => $k, 'text' => $entry));
+                    }
+                }
+            }
+
+            if (count($results) >= $maxResults) {
+                return $results;
+            }
+        }
+        return $results;
+
+    }
+
     // param url = relative to index.php (and as shown when clicking an image in back-end (e.g upload/myimg.jpg))
     // param $w & $h = resize image to these dimensions, if maintainAspectRation=false: resize $w x $h, else: resize assumes $w = maximum width and $h = maximum height
 
