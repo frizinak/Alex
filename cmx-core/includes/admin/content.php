@@ -103,11 +103,12 @@
             <div class="clear"></div>
             <?php
             if (isset($_POST['newfolder']) && isset($_POST['name'])) {
-                $created = @mkdir('../' . Config::$uploadDir . '/' . $dir . '/' . $_POST['name'], Config::$newDirMask);
+                $newdir = str_replace(array('.', '/', '\\'), '', $_POST['name']);
+                $created = @mkdir('../' . Config::$uploadDir . '/' . $dir . '/' . $newdir, Config::$newDirMask);
                 if ($created === false) {
-                    echo '<span class="error">failed to create dir</span>';
+                    echo '<span class="error">failed to create directory</span>';
                 } else {
-                    @chmod('../' . Config::$uploadDir . '/' . $dir . '/' . $_POST['name'], Config::$newDirMask);
+                    @chmod('../' . Config::$uploadDir . '/' . $dir . '/' . $newdir, Config::$newDirMask);
                 }
             }
             ?>
