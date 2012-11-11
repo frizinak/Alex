@@ -393,6 +393,7 @@ Editor.submit_editor = function () {
         editorForm.html('');
         return false;
     }
+    tinyMCE.triggerSave();
     Editor.currentPageStructureIndex = cmx.pageTree.pagesList.indexOf(Editor.currentPageStructure.page);
     $('.tplvar').each(function (i, e) {
         var inp = $(e);

@@ -173,7 +173,7 @@ class Cmx
                     return array(Config::$siteDir . '/' . $cacheImages . '/' . $newUrl, $dims[0], $dims[1], $dims[3]);
                 } else {
                     //not cached => resize, save and return url + dims
-                    require_once('SimpleImage.php');
+                    require_once(Config::$coreDir . '/classes/SimpleImage.php');
                     $img = new SimpleImage();
                     $img->load($url);
                     if ($w > 0 && $h > 0) {
