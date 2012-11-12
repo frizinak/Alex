@@ -15,7 +15,7 @@ Basic idea: developer starts from scratch (no out-of-the-box website that just n
 
 This doesn't imply it's less productive than let's say customizing a wordpress site. On the contrary, you won't be spending hours in the docs to find the right functions and writing hacks to make it suit your needs (or your clients).
 
-Cmx let's you do what you do best, write php/html/css without worrying about the variety of forms you'll need to create/validate/insert to make it into a cms (over and over again for each site you make).
+Cmx lets you do what you do best, write php/html/css without worrying about the variety of forms you'll need to create/validate/insert to make it into a cms (over and over again for each site you make).
 
 *  Simple templating system, with no hard to learn api.
 *  In a json file (1 for each template) you specify the input fields the client can use to edit his content. (4 standard html inputs, easily extendable with javascript admin-plugins)
