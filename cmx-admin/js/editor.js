@@ -304,7 +304,8 @@ Editor.generate_form = function (pageData, tplData) {
 
     tinyMCE.init(
         {
-            plugins                : "advimage",
+            plugins                : "advimage,insertdatetime",
+            theme_advanced_buttons1 : "image,bold,italic,underline,strikethrough,|,insertdate,inserttime,|,forecolor,backcolor,bullist,numlist,fontselect,fontsizeselect",
             mode                   : "specific_textareas",
             editor_selector        : "rich",
             relative_urls          : false,

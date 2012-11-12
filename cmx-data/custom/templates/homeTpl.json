@@ -1,19 +1,33 @@
 {
     "template": "homeTpl",
     "tplData" : {
-        "title"  : {
+        "title"    : {
             "label"      : "titel",
             "description": "titel jaja oopsie",
             "type"       : "text",
             "default"    : "title"
         },
-        "content": {
+        "content"  : {
             "label"      : "inhoud",
             "description": "inhoud lorem ipsum dida",
             "type"       : "textarea",
             "default"    : "title"
         },
-        "test1"  : {
+        "singleimg": {
+            "label"      : "img",
+            "description": "",
+            "type"       : "image",
+            "multiple"   : 2,
+            "default"    : ""
+        },
+        "multiimg" : {
+            "label"      : "img2",
+            "description": "",
+            "type"       : "image",
+            "multiple"   : "dynamic",
+            "default"    : ""
+        },
+        "test1"    : {
             "label"      : "test",
             "description": "testcheckbox",
             "type"       : "checkbox",
@@ -21,7 +35,7 @@
             "default"    : "chk"
 
         },
-        "test2"  : {
+        "test2"    : {
             "label"      : "radiotest",
             "description": "test for radiobuttons",
             "type"       : "radio",

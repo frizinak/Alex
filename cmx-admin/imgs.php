@@ -7,10 +7,15 @@ require_once('../' . Config::$coreDir . '/classes/Login.php');
 if (!Login::is_logged()) {
     die();
 }
-$allowedExts = array('bmp', 'jpg', 'jpeg', 'png', 'bmp');
+$notTinyMce = isset($_GET['non-mce']);
+$allowedExts = array('bmp', 'jpg', 'jpeg', 'png', 'bmp', 'gif');
 function get_images_in_dir($dir)
 {
-    global $allowedExts;
+    global $allowedExts, $notTinyMce;
+
+    if ($notTinyMce && $dir === '../' . Config::$imageDir) {
+        return '';
+    }
     $ret = '';
     $list = glob($dir . '/*');
     foreach ($list as $file) {
@@ -19,20 +24,20 @@ function get_images_in_dir($dir)
         } else {
             $fileExt = explode('.', $file);
             if (in_array(strtolower($fileExt[count($fileExt) - 1]), $allowedExts)) {
-                $ret .= '["' . basename($file) . '", "' . $file . '"],';
+                $ret .= '["' . utf8_encode(str_replace('../','',$file)) . '","' . utf8_encode($file) . '"],';
             }
         }
     }
     return $ret;
 }
 
-header('Content-type: text/javascript');
+header('Content-type: ' . ($notTinyMce ? 'application/json' : 'text/javascript'));
 header('pragma: no-cache');
 header('expires: 0');
-$o = 'var tinyMCEImageList = new Array(';
+$o = $notTinyMce ? '[' : 'var tinyMCEImageList = new Array(';
 $o .= get_images_in_dir('../' . Config::$uploadDir);
 $o = rtrim($o, ',');
-$o .= ')';
+$o .= $notTinyMce ? ']' : ')';
 die($o);
 
 
