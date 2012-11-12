@@ -32,7 +32,7 @@ IndexIgnore *
 
 
 #allow all
-<FilesMatch "(index|ajax)\.php$">
+<FilesMatch "(index|ajax|imgs)\.php$">
  Order Deny,Allow
 </FilesMatch>
 

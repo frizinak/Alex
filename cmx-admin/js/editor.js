@@ -304,8 +304,11 @@ Editor.generate_form = function (pageData, tplData) {
 
     tinyMCE.init(
         {
+            plugins                : "advimage",
             mode                   : "specific_textareas",
             editor_selector        : "rich",
+            relative_urls          : false,
+            external_image_list_url: "imgs.php",
             theme                  : "advanced",
             height                 : "300",
             theme_advanced_resizing: true,
