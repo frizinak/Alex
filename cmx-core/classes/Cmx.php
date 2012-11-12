@@ -6,13 +6,16 @@ class Cmx
     //  data/pages.json
     public static $pages = null;
     //  current page object
-    public static $pageObject = null;
+    public static $pageObject = false;
     // 1dimensional version of $pages
     public static $flatPages = array();
     // last part of the request: page title
     public static $requestPage = '';
     // all parts of the request, e.g.: /home/subpage/blog = array(home,subpage,blog)
     public static $requestParts = array();
+    // all parts of the request, e.g.: /home/subpage/blog = 'home/subpage/blog'
+    public static $requestString = '';
+
     // 2-letter code
     public static $language = '';
 
@@ -56,8 +59,14 @@ class Cmx
         $p = self::get_page($name);
         if ($p !== false) {
             $language = empty(self::$language) ? '' : self::$language . '/';
+            $p['url'] = '/' . trim($p['url'], '/') . '/';
+            if (Config::$ignoreHomepage) {
+                $p['url'] = str_replace('/' . Config::$homepage . '/', '', $p['url']);
+            }
+            $p['url'] = ltrim($p['url'], '/');
+
             if (Config::$seoUrls) {
-                return Config::$siteDir . '/' . $language . $p['url'] . '/';
+                return Config::$siteDir . '/' . $language . $p['url'];
             } else {
                 return Config::$siteDir . '/?cmx-lang=' . self::$language . '&page=' . $p['url'];
             }
@@ -88,7 +97,7 @@ class Cmx
             $pageContent = self::get_content($page['page']);
             foreach ($pageContent['tplData'] as $k => $entry) {
                 $matches = array();
-                $entry=strip_tags($entry);
+                $entry = strip_tags($entry);
                 preg_match_all('/' . $term . '/i', $entry, $matches);
                 if (count($matches[0]) > 0) {
 

@@ -78,16 +78,21 @@ class Index
             }
         }
         Cmx::$pages = json_decode(file_get_contents(Config::$dataDir . '/data/pages.json'), true);
-        Cmx::$requestPage = (!empty($_GET['page']) && trim($_GET['page'], '/') !== '') ? trim($_GET['page'], '/') : Config::$homepage;
-        Cmx::$requestParts = explode('/', Cmx::$requestPage);
+        Cmx::$requestString = (!empty($_GET['page']) && trim($_GET['page'], '/') !== '') ? trim($_GET['page'], '/') : Config::$homepage;
+        Cmx::$requestParts = explode('/', Cmx::$requestString);
         foreach (Cmx::$requestParts as $requestPart) {
             if (!in_array($requestPart, Cmx::$pages['pagesList'])) {
                 self::show_404();
             }
         }
         Cmx::$requestPage = Cmx::$requestParts[count(Cmx::$requestParts) - 1];
-        Utils::parse_pages(); // multidim cmx::$pages -> singledim cmx::flatPages
-        Cmx::$pageObject = isset(Cmx::$flatPages[Cmx::$requestPage]) && Cmx::$flatPages[Cmx::$requestPage]['url']===implode('/',Cmx::$requestParts) ? Cmx::$flatPages[Cmx::$requestPage] : false;
+        Utils::parse_pages(); // multidim Cmx::$pages -> singledim Cmx::$flatPages
+        //Cmx::$pageObject = isset(Cmx::$flatPages[Cmx::$requestPage]) && Cmx::$flatPages[Cmx::$requestPage]['url'] === implode('/', Cmx::$requestParts) ? Cmx::$flatPages[Cmx::$requestPage] : false;
+        if (isset(Cmx::$flatPages[Cmx::$requestPage])) {
+            if (Cmx::$flatPages[Cmx::$requestPage]['url'] === Cmx::$requestString || (Config::$ignoreHomepage && Cmx::$flatPages[Cmx::$requestPage]['url'] === Config::$homepage . '/' . Cmx::$requestString)) {
+                Cmx::$pageObject = Cmx::$flatPages[Cmx::$requestPage];
+            }
+        }
         Config::$fullSiteCache = (Cmx::$pageObject !== false && Config::$fullSiteCache && (!isset(Cmx::$pageObject['cache']) || Cmx::$pageObject['cache'] !== "false"));
     }
 
@@ -160,16 +165,16 @@ class Index
 }
 
 
-
 //cache debugging function to check cache when apc is enabled
-function showCache() {
-  $cachedKeys = new APCIterator('user', '/^cmx_cache_/', APC_ITER_VALUE);
+function showCache()
+{
+    $cachedKeys = new APCIterator('user', '/^cmx_cache_/', APC_ITER_VALUE);
 
-  echo "<pre>\nkeys in cache\n-------------\n";
-  foreach ($cachedKeys AS $key => $value) {
-      echo $key . "\n";
-  }
-  echo "-------------\n</pre>";
+    echo "<pre>\nkeys in cache\n-------------\n";
+    foreach ($cachedKeys AS $key => $value) {
+        echo $key . "\n";
+    }
+    echo "-------------\n</pre>";
 }
 
 Index::init();

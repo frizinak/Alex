@@ -48,6 +48,9 @@ class Config
     //default page to be loaded when visiting site without pagename (http://yoursite.com)
     public static $homepage = 'home';
 
+    //omit homepage in urls (home/subpage -> yoursite.com/subpage)
+    public static $ignoreHomepage = true;
+
     //if site resides in a subdir of public_html/wwwroot use: /subdir, otherwise leave empty
     public static $siteDir = "/Alex";
 
