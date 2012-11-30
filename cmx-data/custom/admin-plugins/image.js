@@ -19,15 +19,15 @@ Image.prototype.generate_form = function (tpl, page, id) {
             if (b === "success") {
                 that.imgList = a;
             } else {
-                notice('An error has occurred in SingleImage plugin.');
+                notice('An error has occurred in Image plugin.');
             }
         },
         error  : function (a, b, c) {
-            notice('An error has occurred in SingleImage plugin.');
+            notice('An error has occurred in Image plugin.');
         }
     });
 
-    this.multi = tpl.multiple
+    this.multi = tpl.multiple;
 
     var ret = '<label style="display:block; clear:both;" data-title="' + tpl.description + '">' + tpl.label + '</label>';
     if (typeof page === 'undefined' || typeof page === 'string' || page.length < 1) {
@@ -56,7 +56,7 @@ Image.prototype.generate_form = function (tpl, page, id) {
 };
 
 Image.prototype.generate_fields = function (page) {
-    var ret = '<div class="img" style="background-color:#808080; padding:20px; margin:10px 20px; width:250px; float:left;"><label>image</label>';
+    var ret = '<div class="img" style="background-color:#d6d5c2; padding:20px; margin:10px 20px; width:250px; float:left;"><label>image</label>';
     if (this.multi === 'dynamic') {
         ret += '<a href="#" class="removeImage" style="float:right;">remove</a>';
     }
@@ -75,6 +75,12 @@ Image.prototype.generate_fields = function (page) {
 Image.prototype.generated_form = function () {
 
     var that = this;
+    /*$('#' + this.id + ' .img').unbind().hover(function (e) {
+        var url = '../'+$(e.currentTarget).find('select').val();
+        $(e.currentTarget).css({'background-image': 'url("' + url + '")'});
+    }, function (e) {
+        $(e.currentTarget).css({'background-image': 'none'});
+    });*/
     $('#' + this.id + ' .removeImage').unbind().click(function (e) {
         if ($('#' + that.id + ' .removeImage').length > 1) {
             $(e.currentTarget).parent().remove();
@@ -93,7 +99,6 @@ Image.prototype.generated_form = function () {
 Image.prototype.submit_form = function () {
     var fields = $('#' + this.id + ' .img'), ret = []
     fields.each(function (i, e) {
-        console.log($(e).find('select').val());
         ret.push([$(e).find('select').val(), $(e).find('input:eq(0)').val(), $(e).find('input:eq(1)').val()])
     });
     return ret;

@@ -26,7 +26,7 @@ Editor.init = function () {
     $('#editor-form').submit(Editor.submit_editor);
     $('#pages').html(text.LoadingMsg);
     $(window).resize(function () {
-        var newWidth = $('#main').width() - $('#pages').outerWidth(true) - 5;
+        var newWidth = $('#main').width() - $('#pages').outerWidth(true) - 5 - 170;
         $('#editor').width(newWidth > 370 ? newWidth : 370);
     });
     $(window).resize();

@@ -295,28 +295,36 @@ body {
 /*------------NOTICE----------*/
 
 #labeltip {
+    position: fixed;
+    top:50px;
+    left:0;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    border: 1px solid #4ab4d2;
     font-size: 11px;
-    color: #2f7285;
+    color: #4ab4d2;
     font-weight: bold;
     display: inline-block;
     margin: 10px 0 0 30px;
-    padding: 2px 12px 0 12px;
-    min-width: 246px;
+    padding: 2px 25px 0 25px;
+    min-width: 218px;
     height: 18px;
-    background-color: #cdcdbc;
-    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.16);
+    /*background-color: #030c16;*/
+    background-image: url("menu_bg.png");
+
+    box-shadow: 1px 5px 5px rgba(0, 0, 0, 0.4);
+    z-index: 10000;
 }
 
 #labeltip.critical {
-    color: #852f2f;
+    border: 1px solid #d24a4a;
+    color: #d24a4a;
     background-color: #cdbcbc;
 }
 
 /*------------MAIN----------*/
 
 #main {
-    margin: 10px 30px 0 30px;
+    margin: 40px 30px 0 30px;
 }
 
 #pageDescr {
@@ -429,6 +437,12 @@ body {
     background-image: url("editor_bg.png");
 }
 
+#editor
+{
+
+    margin: 0 150px 50px 0;
+}
+
 #newpage {
     width: 50%;
     margin: 0 auto 0 auto;
@@ -460,6 +474,7 @@ body {
     font-variant: small-caps;
     padding-bottom: 3px;
     min-width: 100px;
+    font-weight: bold;
 }
 
 label[data-title]:hover {
@@ -528,6 +543,8 @@ label[data-title]:hover {
     background-position: 18px 13px;
 }
 
+
+
 #submiteditform, #removepage, #submitnewform, #confirmno, #confirmyes, #uploadwrapper input[type="submit"] {
     display: inline-block;
     margin: 15px 10px;
@@ -536,12 +553,35 @@ label[data-title]:hover {
     font-size: 18px;
     font-variant: small-caps;
     font-weight: bold;
-    color: #cdcdbc;
+    color: #bcbcab;
     text-transform: capitalize;
+    text-align: center;
     text-decoration: none;
-    border: 2px solid #cdcdbc;
+    border: 2px solid #bcbcab;
     background-color: #e4e3cf;
     float: right;
+}
+
+#submiteditform
+{
+    position: fixed;
+    top:90px;
+    right: 50px;
+    width: 100px;
+    font-size: 14px;
+    margin: 0;
+
+}
+
+#removepage
+{
+    position: fixed;
+    top:150px;
+    right: 75px;
+    width: 50px;
+    font-size: 14px;
+    margin: 0;
+
 }
 
 #submiteditform:hover, #confirmno:hover, #submitnewform:hover, #uploadwrapper input[type="submit"]:hover {

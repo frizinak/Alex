@@ -96,19 +96,21 @@ class Cmx
             }
             $pageContent = self::get_content($page['page']);
             foreach ($pageContent['tplData'] as $k => $entry) {
-                $matches = array();
-                $entry = strip_tags($entry);
-                preg_match_all('/' . $term . '/i', $entry, $matches);
-                if (count($matches[0]) > 0) {
+                if (is_string($entry)) {
+                    $matches = array();
+                    $entry = strip_tags($entry);
+                    preg_match_all('/' . $term . '/i', $entry, $matches);
+                    if (count($matches[0]) > 0) {
 
-                    $index = strpos(strtolower($entry), strtolower($term)) - 20;
-                    $index = $index < 0 ? 0 : $index;
-                    $entry = ($index > 0 ? '...' : '') . substr($entry, $index, 40 + strlen($term)) . ($index + 40 + strlen($term) >= strlen($entry) ? '' : '...');
-                    if (isset($results[$page['page']])) {
+                        $index = strpos(strtolower($entry), strtolower($term)) - 20;
+                        $index = $index < 0 ? 0 : $index;
+                        $entry = ($index > 0 ? '...' : '') . substr($entry, $index, 40 + strlen($term)) . ($index + 40 + strlen($term) >= strlen($entry) ? '' : '...');
+                        if (isset($results[$page['page']])) {
 
-                        $results[$page['page']][] = array('tplVar' => $k, 'text' => $entry);
-                    } else {
-                        $results[$page['page']] = array(array('tplVar' => $k, 'text' => $entry));
+                            $results[$page['page']][] = array('tplVar' => $k, 'text' => $entry);
+                        } else {
+                            $results[$page['page']] = array(array('tplVar' => $k, 'text' => $entry));
+                        }
                     }
                 }
             }
@@ -138,7 +140,7 @@ class Cmx
                 return false;
             }
             $aspect = $realDims[0] / $realDims[1];
-            $cacheImages = Config::$imageDir . '/';
+            $cacheImages = Config::$imageDir ;
             //need to resize, if not just return $url relative to root + img dimensions
             if (($w > 0 && $w < $realDims[0]) || ($h > 0 && $h < $realDims[1])) {
                 //unique name based on path+filename =>no collisions when working with same filenames in different directories

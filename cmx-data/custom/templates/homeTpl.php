@@ -34,14 +34,24 @@
         echo '</p>';
     }
 
-    $urls = glob('upload/img???.jpg');
+    $urls = Cmx::$pageObject['pageInfo']['tplData']['singleimg'];
+
     foreach ($urls as $url) {
-        $img = Cmx::get_img($url, 350, 350, true);
+        $img = Cmx::get_img($url[0], 0, 0, true);
         if ($img !== false) {
             echo '<img src="' . $img[0] . '" ' . $img[3] . '/>';
         }
-        break;
     }
+
+    $urls = Cmx::$pageObject['pageInfo']['tplData']['multiimg'];
+
+    foreach ($urls as $url) {
+        $img = Cmx::get_img($url[0], 100, 100, true);
+        if ($img !== false) {
+            echo '<img src="' . $img[0] . '" ' . $img[3] . '/>';
+        }
+    }
+
 
     ?>
 </div>
