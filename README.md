@@ -9,6 +9,7 @@ File-based end-user oriented CMS
 
 
 
+
 Early stages of a file-based CMS. I started this project out of necessity for a simple to customize and flexible CMS for my clients.
 
 Most pre-made CMSes are either hard to customize, pack a bunch of features you never use or simply don't fit your project.
