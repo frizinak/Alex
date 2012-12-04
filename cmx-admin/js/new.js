@@ -17,7 +17,7 @@ AddRem.pagesSelect = null;
 AddRem.init = function () {
     $('#pageDescr').html(text.PageDescrNew);
 
-    AddRem.allTpls = cmx.get_all_tpls();
+    AddRem.allTpls = cmx.get_all_tpls_by_parent("_root");
     AddRem.reload();
 };
 
@@ -36,7 +36,7 @@ AddRem.reload = function () {
                 AddRem.allPages.push(parent.subpages[key].page);
                 AddRem.pagesSelect.push([indent + parent.subpages[key].page, parent.subpages[key].page]);
                 if (parent.subpages[key].hasOwnProperty('subpages')) {
-                    var newindent = "".rpad('&nbsp;',indent.length + 12);
+                    var newindent = "".rpad('&nbsp;', indent.length + 12);
                     flatten(parent.subpages[key], newindent + '|_');
                 }
             }
@@ -51,7 +51,7 @@ AddRem.generate_form = function () {
     html = '<label data-title="' + text.LblPageNameHelp + '">' + text.LabelPageName + '</label><br/>';
     html += '<input id="pagename" type="text" /><br/>';
     html += '<label data-title="' + text.LblPageParentHelp + '">' + text.LabelParent + '</label>';
-    html += '<select id="parentname"><option>' + text.NoParent + '</option>';
+    html += '<select id="parentname"><option value="_root">' + text.NoParent + '</option>';
     for (key in AddRem.pagesSelect) {
         html += '<option value="' + AddRem.pagesSelect[key][1] + '">' + AddRem.pagesSelect[key][0] + '</option>';
     }
@@ -65,11 +65,31 @@ AddRem.generate_form = function () {
     html += '</select><br/>';
     html += '<a id="submitnewform" href="#">' + text.CreateBtn + '</a><div class="clear"></div>';
     $('#page-form').html(html);
+    $('#page-form #parentname').change(AddRem.update_templates);
     $('#submitnewform').click(AddRem.submit_form);
     $('label[data-title]').unbind().click(function (e) {
         notice($(e.currentTarget).attr('data-title'));
     });
 
+};
+
+AddRem.update_templates = function () {
+    var pn = $('#page-form #parentname').val(), key, html = '',tplSelect=$('#tplfile'),submit=$('#submitnewform');
+    AddRem.allTpls = cmx.get_all_tpls_by_parent(pn);
+    for (key in AddRem.allTpls) {
+        html += '<option>' + AddRem.allTpls[key] + '</option>';
+    }
+    if(html.length>1)
+    {
+        tplSelect.show().html(html);
+        tplSelect.siblings('label').last().html(text.LabelTemplate);
+        submit.show();
+    }else
+    {
+        tplSelect.hide().html('');
+        tplSelect.siblings('label').last().html(text.TplChildError);
+        submit.hide();
+    }
 };
 
 AddRem.submit_form = function () {

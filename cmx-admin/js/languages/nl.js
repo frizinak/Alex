@@ -63,6 +63,8 @@ var text = {
     "PageCreateStructureError": "Kon pagina niet aanmaken.",
     "DeleteFileError"         : "Bestand kon niet worden verwijderd.",
     "DeleteDirError"          : "Map kon niet worden verwijderd, zorg dat deze leeg is.",
-    "CacheClearError"         : "Cache kon niet worden leeg gemaakt."
+    "CacheClearError"         : "Cache kon niet worden leeg gemaakt.",
+    "TplChildError"           : "Deze pagina kan geen subpagina's hebben."
+
 
 };

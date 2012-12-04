@@ -27,6 +27,8 @@ class Config
         array(2000, 2000, 100)
     );
 
+    public static $templateNesting = array("_root"=>array("AgendaTpl","blogTpl"),"AgendaTpl" => array(), "blogTpl" => array("blogPostTpl"));
+
 
     //frontend related entries
 

@@ -62,7 +62,6 @@ Image.prototype.generate_fields = function (page) {
     }
     ret += '<select>';
     for (var i = 0; i < this.imgList.length; i++) {
-        console.log();
         var selected = this.imgList[i][1].substr(3) == page[0];
         ret += '<option value="' + this.imgList[i][1].substr(3) + '"' + (selected ? ' selected="selected"' : '') + '>' + this.imgList[i][0] + '</option>';
     }

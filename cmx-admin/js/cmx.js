@@ -93,6 +93,29 @@ Cmx.prototype.get_all_tpls = function () {
     return tpl;
 };
 
+Cmx.prototype.get_all_tpls_by_parent = function (parent) {
+    var tpl = false, that = this;
+    Cmx.loading(true);
+    $.ajax({
+        type   : 'POST',
+        url    : 'ajax.php',
+        async  : false,
+        data   : {'gettplbyparent': parent},
+        success: function (a, b) {
+            if (b === "success" && a !== 'error' && a !== 'log') {
+                tpl = JSON.parse(a);
+            } else {
+                that.ajax_fail(a, b);
+            }
+        },
+        error  : function (a, b, c) {
+            that.ajax_fail(a, b, c);
+        }
+    });
+    Cmx.loading(false);
+    return tpl;
+};
+
 Cmx.prototype.get_tpl = function (name) {
     var tpl = false, that = this;
     Cmx.loading(true);

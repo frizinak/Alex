@@ -6,7 +6,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
     require_once('../' . Config::$coreDir . '/classes/Utils.php');
     require_once('../' . Config::$coreDir . '/classes/Login.php');
 
-    $logged = Login::is_logged();//isset($_SESSION['logged']) && $_SESSION['logged'] === true && isset($_SESSION['age']) && microtime(true) - $_SESSION['age'] < Config::$sessionExpiry && isset($_SESSION['ua']) && $_SESSION['ua'] === sha1($_SERVER['HTTP_USER_AGENT'] . Config::$salt);
+    $logged = Login::is_logged(); //isset($_SESSION['logged']) && $_SESSION['logged'] === true && isset($_SESSION['age']) && microtime(true) - $_SESSION['age'] < Config::$sessionExpiry && isset($_SESSION['ua']) && $_SESSION['ua'] === sha1($_SERVER['HTTP_USER_AGENT'] . Config::$salt);
 
     if ($logged) {
 
@@ -67,7 +67,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
             foreach ($object->tplData as &$tplVar) {
                 $tplVar = $tplVar->default;
             }
-            $data=json_encode($object);
+            $data = json_encode($object);
             $file = @Utils::fopen_recursive('../' . Config::$dataDir . '/pages/' . $fn, 'w', Config::$newDirMask, Config::$newFileMask);
             if ($file !== false && $data !== false) {
                 fwrite($file, $data);
@@ -91,14 +91,6 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
             $content = $content !== false ? $content : 'error';
         }
 
-        if (isset($_POST['clearcache'])) {
-            if (extension_loaded('apc')) {
-                $del = new APCIterator('user', '/^cmx_cache_/', APC_ITER_VALUE);
-                apc_delete($del);
-            }
-            Utils::empty_dir('../' . Config::$cacheDir . '/');
-            $content = 'success';
-        }
 
         if (isset($_POST['getalltpl'])) {
             $content = @glob('../' . Config::$dataDir . '/custom/templates/' . "*.json", GLOB_BRACE);
@@ -108,6 +100,52 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
                 }
             }
             $content = $content !== false ? json_encode($content) : 'error';
+        }
+
+        if (isset($_POST['gettplbyparent'])) {
+            if (isset(Config::$templateRelations) && count(Config::$templateRelations) > 0) {
+
+
+                $parentTpl = false;
+                if ($_POST['gettplbyparent'] === "_root") {
+                    $parentTpl = "_root";
+                } else {
+                    $parent = @file_get_contents('../' . Config::$dataDir . '/pages/' . $_POST['gettplbyparent'] . '.json');
+                    if ($parent !== false) {
+                        $parent = json_decode($parent, true);
+                        $parentTpl = $parent['template'];
+                    }
+
+                }
+                if ($parentTpl !== false) {
+                    if (isset(Config::$templateRelations[$parentTpl]) && count(Config::$templateRelations[$parentTpl]) > 0) {
+                        $content = json_encode(Config::$templateRelations[$parentTpl]);
+                    } else {
+                        $content = json_encode(array());
+                    }
+                } else {
+                    $content = false;
+                }
+
+                $content = $content !== false ? $content : 'error';
+            } else {
+                $content = @glob('../' . Config::$dataDir . '/custom/templates/' . "*.json", GLOB_BRACE);
+                if ($content !== false) {
+                    foreach ($content as $k => $v) {
+                        $content[$k] = basename($v, '.json');
+                    }
+                }
+                $content = $content !== false ? json_encode($content) : 'error';
+            }
+        }
+
+        if (isset($_POST['clearcache'])) {
+            if (extension_loaded('apc')) {
+                $del = new APCIterator('user', '/^cmx_cache_/', APC_ITER_VALUE);
+                apc_delete($del);
+            }
+            Utils::empty_dir('../' . Config::$cacheDir . '/');
+            $content = 'success';
         }
 
         if (isset($_POST['pagetreeopened'])) {
@@ -122,7 +160,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 
         if (isset($_POST['deletedir'])) {
             $dir = str_replace('..', '', $_POST['deletedir']);
-            $delete = @rmdir('../' . Config::$uploadDir . '/'.$dir);
+            $delete = @rmdir('../' . Config::$uploadDir . '/' . $dir);
             $content = $delete ? 'success' : 'error';
         }
 

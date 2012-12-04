@@ -304,15 +304,20 @@ Editor.generate_form = function (pageData, tplData) {
 
     tinyMCE.init(
         {
-            plugins                : "advimage,insertdatetime",
-            theme_advanced_buttons1 : "image,bold,italic,underline,strikethrough,|,insertdate,inserttime,|,forecolor,backcolor,bullist,numlist,fontselect,fontsizeselect",
+            plugins                : "advimage,insertdatetime,autoresize",
+            theme_advanced_buttons1: "image,bold,italic,underline,strikethrough,|,insertdate,inserttime,forecolor,backcolor,bullist,numlist,",
+            theme_advanced_buttons2: "fontselect,fontsizeselect,|,link,unlink",
+
             mode                   : "specific_textareas",
             editor_selector        : "rich",
             relative_urls          : false,
             external_image_list_url: "imgs.php",
             theme                  : "advanced",
-            height                 : "300",
-            theme_advanced_resizing: true,
+            theme_advanced_resizing: false,
+            width                  : '100%',
+            height                 : 400,
+            autoresize_min_height  : 400,
+            autoresize_max_height  : 800,
             init_instance_callback : function () {
                 $(window).resize();
             }

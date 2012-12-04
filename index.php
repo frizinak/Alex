@@ -165,7 +165,7 @@ class Index
 }
 
 
-//cache debugging function to check cache when apc is enabled
+//cache dumping function to check cache when apc is enabled
 function showCache()
 {
     $cachedKeys = new APCIterator('user', '/^cmx_cache_/', APC_ITER_VALUE);

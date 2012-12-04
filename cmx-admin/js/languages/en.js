@@ -63,5 +63,7 @@ var text = {
     "PageCreateStructureError": "Couldn't create page.",
     "DeleteFileError"         : "File could not be deleted.",
     "DeleteDirError"          : "Directory could not be deleted, make sure it's empty.",
-    "CacheClearError"         : "Cache was not cleared"
+    "CacheClearError"         : "Cache was not cleared",
+    "TplChildError"           : "This page can't have any sub-pages"
+
 };
