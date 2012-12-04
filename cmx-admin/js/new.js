@@ -17,12 +17,12 @@ AddRem.pagesSelect = null;
 AddRem.init = function () {
     $('#pageDescr').html(text.PageDescrNew);
 
-    AddRem.allTpls = cmx.get_all_tpls_by_parent("_root");
     AddRem.reload();
 };
 
 AddRem.reload = function () {
     var key;
+    AddRem.allTpls = cmx.get_all_tpls_by_parent("_root");
     cmx.pageTree = cmx.get_page_tree();
     if (cmx.pageTree === false || AddRem.allTpls === false) {
         notice(text.PageTreeError, 1);

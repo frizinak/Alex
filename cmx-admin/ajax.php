@@ -103,7 +103,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
         }
 
         if (isset($_POST['gettplbyparent'])) {
-            if (isset(Config::$templateRelations) && count(Config::$templateRelations) > 0) {
+            if (isset(Config::$templateNesting) && count(Config::$templateNesting) > 0) {
 
 
                 $parentTpl = false;
@@ -118,8 +118,8 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 
                 }
                 if ($parentTpl !== false) {
-                    if (isset(Config::$templateRelations[$parentTpl]) && count(Config::$templateRelations[$parentTpl]) > 0) {
-                        $content = json_encode(Config::$templateRelations[$parentTpl]);
+                    if (isset(Config::$templateNesting[$parentTpl]) && count(Config::$templateNesting[$parentTpl]) > 0) {
+                        $content = json_encode(Config::$templateNesting[$parentTpl]);
                     } else {
                         $content = json_encode(array());
                     }

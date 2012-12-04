@@ -27,7 +27,12 @@ class Config
         array(2000, 2000, 100)
     );
 
-    public static $templateNesting = array("_root"=>array("AgendaTpl","blogTpl"),"AgendaTpl" => array(), "blogTpl" => array("blogPostTpl"));
+    // Add an entry to this array to set the templates that are allowed as subpages for a certain template.
+    // leave ENTIRE array empty if any template can be a child of another.
+    // example: root pages can only be BlogTemplate and ContactTemplate: $templateNesting = array("_root"=>array("BlogTemplate","ContactTemplate"));
+    //          only allow posts to be made withing a BlogTemplate page: $templateNesting = array("_root"=>array("BlogTemplate","ContactTemplate"), "BlogTemplate" => array("BlogPostTemplate"));
+
+    public static $templateNesting = array("_root" => array("AgendaTpl", "blogTpl"), "AgendaTpl" => array(), "blogTpl" => array("blogPostTpl"));
 
 
     //frontend related entries
