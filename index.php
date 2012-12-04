@@ -37,6 +37,7 @@ class Index
 
     public static $scriptStart = 0;
     private static $initiated = false;
+    private static $cache=false;
 
     public static function init()
     {
@@ -93,14 +94,16 @@ class Index
                 Cmx::$pageObject = Cmx::$flatPages[Cmx::$requestPage];
             }
         }
-        Config::$fullSiteCache = (Cmx::$pageObject !== false && Config::$fullSiteCache && (!isset(Cmx::$pageObject['cache']) || Cmx::$pageObject['cache'] !== "false"));
+        //Config::$fullSiteCache = (Cmx::$pageObject !== false && Config::$fullSiteCache && (!isset(Cmx::$pageObject['cache']) || Cmx::$pageObject['cache'] !== "false"));
+        Index::$cache = (Cmx::$pageObject !== false && Config::$globalCacheTime>0 && (!isset(Cmx::$pageObject['cache']) || Cmx::$pageObject['cache'] !== "false"));
+
     }
 
     private static function show_page()
     {
         $lang = !empty(Cmx::$language) ? Cmx::$language . '/' : 'default/';
 
-        if (Config::$fullSiteCache) {
+        if (Index::$cache) {
             $cached = Utils::get_cache('pages/' . $lang . Cmx::$pageObject['file'] . '.htm');
             if ($cached !== false) {
                 echo $cached;
@@ -129,7 +132,7 @@ class Index
             $output = ob_get_clean();
             if ($check !== false || Config::$debug) {
                 echo $output;
-                Config::$fullSiteCache ? Utils::string_to_cache('pages/' . $lang . Cmx::$pageObject['file'] . '.htm', $output, Config::$globalCacheTime) : '';
+                Index::$cache ? Utils::string_to_cache('pages/' . $lang . Cmx::$pageObject['file'] . '.htm', $output, Config::$globalCacheTime) : '';
                 echo Config::$showTimers ? ' ' . (floor((microtime(true) - Index::$scriptStart) * 100000) / 100) . 'ms' : '';
             } else {
                 $pattern = '/Parse error(.*?)in (.*?)\((.*?)\)/';

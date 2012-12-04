@@ -9,7 +9,7 @@ class Config
     public static $sessionExpiry = 3600;
 
     //salt for useragent validation (extra measure to prevent session hijacking)
-    public static $salt = 'pfy26udK1qgOBv5cCnwU';
+    //public static $salt = 'pfy26udK1qgOBv5cCnwU';
 
     //password noise
     public static $pwSalt = 'VzAVKtFAixn8B0rZq32k';
@@ -44,10 +44,10 @@ class Config
     public static $tplCacheTime = 1;
 
     //amount of time pages are cached, does not affect manual caching
-    public static $globalCacheTime = 1;
+    public static $globalCacheTime = 5;
 
     //enable caching, does not affect manual caching / tplcaching
-    public static $fullSiteCache = true;
+    //public static $fullSiteCache = true;
 
     //uses APC instead of files for caching (recommended: true, will fallback to files if APC is not installed)
     public static $useAPC = false;

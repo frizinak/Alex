@@ -9,10 +9,10 @@ class Login
         if (isset($passwords[$_POST['username']])) {
             session_regenerate_id(true);
 
-            if (sha1(sha1($passwords[$_POST['username']]['salt'].$_POST['password']).Config::$pwSalt) === $passwords[$_POST['username']]['pw']) {
+            if (sha1(sha1($passwords[$_POST['username']]['salt'] . $_POST['password']) . Config::$pwSalt) === $passwords[$_POST['username']]['pw']) {
                 $_SESSION['logged'] = true;
                 $_SESSION['age'] = microtime(true);
-                $_SESSION['ua'] = sha1($_SERVER['HTTP_USER_AGENT'] . Config::$salt);
+                $_SESSION['ua'] = $_SERVER['HTTP_USER_AGENT'];
                 return true;
             }
         }
@@ -36,7 +36,7 @@ class Login
             isset($_SESSION['age']) &&
             microtime(true) - $_SESSION['age'] < Config::$sessionExpiry &&
             isset($_SESSION['ua']) &&
-            $_SESSION['ua'] === sha1($_SERVER['HTTP_USER_AGENT'] . Config::$salt));
+            $_SESSION['ua'] === $_SERVER['HTTP_USER_AGENT']);
     }
 
     public static function prepare_session()
