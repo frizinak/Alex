@@ -2,9 +2,10 @@
 
 if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     session_start();
-    require_once('../Config.class.php');
-    require_once('../' . Config::$coreDir . '/classes/Utils.php');
-    require_once('../' . Config::$coreDir . '/classes/Login.php');
+    require_once('AdminConfig.class.php');
+    require_once(AdminConfig::$frontendDir . '/Config.class.php');
+    require_once(AdminConfig::$frontendDir . '/' . Config::$coreDir . '/classes/Utils.php');
+    require_once(AdminConfig::$frontendDir . '/' . Config::$coreDir . '/classes/Login.php');
 
     $logged = Login::is_logged(); //isset($_SESSION['logged']) && $_SESSION['logged'] === true && isset($_SESSION['age']) && microtime(true) - $_SESSION['age'] < Config::$sessionExpiry && isset($_SESSION['ua']) && $_SESSION['ua'] === sha1($_SERVER['HTTP_USER_AGENT'] . Config::$salt);
 
@@ -26,12 +27,12 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
         $_SESSION['age'] = microtime(true);
         $content = 'error';
         if (isset($_POST['getpage'])) {
-            $content = @file_get_contents('../' . Config::$dataDir . '/pages/' . $_POST['getpage'] . '.json');
+            $content = @file_get_contents(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/pages/' . $_POST['getpage'] . '.json');
             $content = $content !== false ? $content : 'error';
         }
 
         if (isset($_POST['getpagetree'])) {
-            $content = @file_get_contents('../' . Config::$dataDir . '/data/pages.json');
+            $content = @file_get_contents(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/data/pages.json');
             $content = $content !== false ? $content : 'error';
         }
 
@@ -39,7 +40,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
             $newContent = @json_encode($_POST['setpage']);
             $written = false;
             if ($newContent !== false) {
-                $written = @file_put_contents('../' . Config::$dataDir . '/pages/' . $_POST['name'] . '.json', $newContent);
+                $written = @file_put_contents(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/pages/' . $_POST['name'] . '.json', $newContent);
             }
             if ($written !== false) {
                 $content = 'saved';
@@ -51,7 +52,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
             $newContent = @json_encode($_POST['setpagetree']);
             $written = false;
             if ($newContent !== false) {
-                $written = @file_put_contents('../' . Config::$dataDir . '/data/pages.json', $newContent);
+                $written = @file_put_contents(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/data/pages.json', $newContent);
             }
             if ($written !== false) {
                 $content = 'saved';
@@ -61,39 +62,36 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
         if (isset($_POST['makepage']) && isset($_POST['tpl'])) {
             $content = 'error';
 
-            $fn = Utils::safe_filename($_POST['makepage'], 'json', '../' . Config::$dataDir . '/pages');
-            $data = @file_get_contents('../' . Config::$dataDir . '/custom/templates/' . $_POST['tpl'] . '.json');
+            $fn = Utils::safe_filename($_POST['makepage'], 'json', AdminConfig::$frontendDir . '/' . Config::$dataDir . '/pages');
+            $data = @file_get_contents(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/custom/templates/' . $_POST['tpl'] . '.json');
             $object = json_decode($data);
             foreach ($object->tplData as &$tplVar) {
                 $tplVar = $tplVar->default;
             }
             $data = json_encode($object);
-            $file = @Utils::fopen_recursive('../' . Config::$dataDir . '/pages/' . $fn, 'w', Config::$newDirMask, Config::$newFileMask);
+            $file = @Utils::fopen_recursive(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/pages/' . $fn, 'w', Config::$newDirMask, Config::$newFileMask);
             if ($file !== false && $data !== false) {
                 fwrite($file, $data);
                 fclose($file);
                 $content = explode('.', $fn);
                 $content = $content[0];
             }
-
         }
         if (isset($_POST['delpage'])) {
             $content = 'error';
-            $deleted = @unlink('../' . Config::$dataDir . '/pages/' . $_POST['delpage'] . '.json');
+            $deleted = @unlink(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/pages/' . $_POST['delpage'] . '.json');
             if ($deleted !== false) {
                 $content = 'success';
             }
-
         }
 
         if (isset($_POST['gettpl'])) {
-            $content = @file_get_contents('../' . Config::$dataDir . '/custom/templates/' . $_POST['gettpl'] . '.json');
+            $content = @file_get_contents(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/custom/templates/' . $_POST['gettpl'] . '.json');
             $content = $content !== false ? $content : 'error';
         }
 
-
         if (isset($_POST['getalltpl'])) {
-            $content = @glob('../' . Config::$dataDir . '/custom/templates/' . "*.json", GLOB_BRACE);
+            $content = @glob(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/custom/templates/' . "*.json", GLOB_BRACE);
             if ($content !== false) {
                 foreach ($content as $k => $v) {
                     $content[$k] = basename($v, '.json');
@@ -105,17 +103,15 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
         if (isset($_POST['gettplbyparent'])) {
             if (isset(Config::$templateNesting) && count(Config::$templateNesting) > 0) {
 
-
                 $parentTpl = false;
                 if ($_POST['gettplbyparent'] === "_root") {
                     $parentTpl = "_root";
                 } else {
-                    $parent = @file_get_contents('../' . Config::$dataDir . '/pages/' . $_POST['gettplbyparent'] . '.json');
+                    $parent = @file_get_contents(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/pages/' . $_POST['gettplbyparent'] . '.json');
                     if ($parent !== false) {
                         $parent = json_decode($parent, true);
                         $parentTpl = $parent['template'];
                     }
-
                 }
                 if ($parentTpl !== false) {
                     if (isset(Config::$templateNesting[$parentTpl]) && count(Config::$templateNesting[$parentTpl]) > 0) {
@@ -129,7 +125,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 
                 $content = $content !== false ? $content : 'error';
             } else {
-                $content = @glob('../' . Config::$dataDir . '/custom/templates/' . "*.json", GLOB_BRACE);
+                $content = @glob(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/custom/templates/' . "*.json", GLOB_BRACE);
                 if ($content !== false) {
                     foreach ($content as $k => $v) {
                         $content[$k] = basename($v, '.json');
@@ -144,7 +140,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
                 $del = new APCIterator('user', '/^cmx_cache_/', APC_ITER_VALUE);
                 apc_delete($del);
             }
-            Utils::empty_dir('../' . Config::$cacheDir . '/');
+            Utils::empty_dir(AdminConfig::$frontendDir . '/' . Config::$cacheDir . '/');
             $content = 'success';
         }
 
@@ -154,13 +150,13 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 
         if (isset($_POST['deletefile'])) {
             $file = str_replace('..', '', $_POST['deletefile']);
-            $delete = @unlink('../' . Config::$uploadDir . '/' . $file);
+            $delete = @unlink(AdminConfig::$frontendDir . '/' . Config::$uploadDir . '/' . $file);
             $content = $delete ? 'success' : 'error';
         }
 
         if (isset($_POST['deletedir'])) {
             $dir = str_replace('..', '', $_POST['deletedir']);
-            $delete = @rmdir('../' . Config::$uploadDir . '/' . $dir);
+            $delete = @rmdir(AdminConfig::$frontendDir . '/' . Config::$uploadDir . '/' . $dir);
             $content = $delete ? 'success' : 'error';
         }
 

@@ -17,7 +17,7 @@ Image.prototype.generate_form = function (tpl, page, id) {
         async  : false,
         success: function (a, b) {
             if (b === "success") {
-                that.imgList = a;
+                that.imgList = [['None','../None']].concat(a);
             } else {
                 notice('An error has occurred in Image plugin.');
             }
@@ -62,8 +62,8 @@ Image.prototype.generate_fields = function (page) {
     }
     ret += '<select>';
     for (var i = 0; i < this.imgList.length; i++) {
-        var selected = this.imgList[i][1].substr(3) == page[0];
-        ret += '<option value="' + this.imgList[i][1].substr(3) + '"' + (selected ? ' selected="selected"' : '') + '>' + this.imgList[i][0] + '</option>';
+        var selected = this.imgList[i][0] == page[0];
+        ret += '<option value="' + this.imgList[i][0] + '"' + (selected ? ' selected="selected"' : '') + '>' + this.imgList[i][0] + '</option>';
     }
     ret += '</select>';
     ret += '<label>img title</label><input type="text" value="' + page[1] + '"/>'

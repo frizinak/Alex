@@ -1,8 +1,9 @@
 <?php session_start();
 //classes
-require_once('../Config.class.php');
-require_once('../' . Config::$coreDir . '/classes/Utils.php');
-require_once('../' . Config::$coreDir . '/classes/Login.php');
+require_once('AdminConfig.class.php');
+require_once(AdminConfig::$frontendDir . '/Config.class.php');
+require_once(AdminConfig::$frontendDir . '/' . Config::$coreDir . '/classes/Utils.php');
+require_once(AdminConfig::$frontendDir . '/' . Config::$coreDir . '/classes/Login.php');
 
 class Admin
 {
@@ -25,7 +26,6 @@ if (isset($_GET['logout']) && Admin::$logged) {
     Login::log_out();
     Admin::$logged = false;
     header('Location: index.php');
-
 }
 
 Admin::$page = isset($_GET['page']) ? $_GET['page'] : 'edit';
@@ -36,7 +36,8 @@ Admin::$lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : 'en';
 Admin::$langs = glob('js/languages/??.js');
 
 if (Admin::$logged && isset($_POST['backup'])) {
-    chdir('../');
+    $curDir=getcwd();
+    chdir(AdminConfig::$frontendDir.'/');
     Admin::$backupFile = Utils::backup('' . Config::$cacheDir . '/backup-' . date('Y-m-d_Gi'), array('' . Config::$dataDir), Config::$newFileMask);
     if (is_file(Admin::$backupFile[0])) {
         header("Content-Type: " . (Admin::$backupFile[1] === 'zip' ? "application/zip" : "text/plain"));
@@ -46,15 +47,15 @@ if (Admin::$logged && isset($_POST['backup'])) {
         unlink(Admin::$backupFile[0]);
         exit;
     } else {
-        chdir(Config::$adminDir);
+        chdir($curDir);
     }
 }
 //output
-require_once('../' . Config::$coreDir . '/includes/admin/header.php');
+require_once(AdminConfig::$frontendDir.'/' . Config::$coreDir . '/includes/admin/header.php');
 if (!Admin::$logged) {
     Login::prepare_session();
-    require_once('../' . Config::$coreDir . '/includes/admin/loginform.php');
+    require_once(AdminConfig::$frontendDir.'/' . Config::$coreDir . '/includes/admin/loginform.php');
 } else {
-    require_once('../' . Config::$coreDir . '/includes/admin/content.php');
+    require_once(AdminConfig::$frontendDir.'/' . Config::$coreDir . '/includes/admin/content.php');
 }
-require_once('../' . Config::$coreDir . '/includes/admin/footer.php');
+require_once(AdminConfig::$frontendDir.'/' . Config::$coreDir . '/includes/admin/footer.php');

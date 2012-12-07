@@ -85,12 +85,11 @@
         <div id="uploadwrapper">
             <?php
             if (isset($_POST['uploadfiles']) && isset($_FILES['files'])) {
-                require_once('../' . Config::$coreDir . '/classes/Upload.php');
-                $upped = Upload::up('../' . Config::$uploadDir . '/' . $dir);
+                require_once(AdminConfig::$frontendDir . '/' . Config::$coreDir . '/classes/Upload.php');
+                $upped = Upload::up(AdminConfig::$frontendDir . '/'. Config::$uploadDir . '/' . $dir);
                 if ($upped !== true) {
                     foreach ($upped as $error)
                         echo '<span class="error">' . $error . '</span><br/>';
-
                 }
             } elseif (isset($_GET['action']) && $_GET['action'] === 'upload') {
                 echo '<span class="error">Failed to upload. Try selecting less or smaller files at once.</span><br/>';
@@ -104,11 +103,11 @@
             <?php
             if (isset($_POST['newfolder']) && isset($_POST['name'])) {
                 $newdir = str_replace(array('.', '/', '\\'), '', $_POST['name']);
-                $created = @mkdir('../' . Config::$uploadDir . '/' . $dir . '/' . $newdir, Config::$newDirMask);
+                $created = @mkdir(AdminConfig::$frontendDir . '/' . Config::$uploadDir . '/' . $dir . '/' . $newdir, Config::$newDirMask);
                 if ($created === false) {
                     echo '<span class="error">failed to create directory</span>';
                 } else {
-                    @chmod('../' . Config::$uploadDir . '/' . $dir . '/' . $newdir, Config::$newDirMask);
+                    @chmod(AdminConfig::$frontendDir . '/' . Config::$uploadDir . '/' . $dir . '/' . $newdir, Config::$newDirMask);
                 }
             }
             ?>
@@ -119,8 +118,8 @@
             <div class="clear"></div>
         </div>
         <?php
-        $files = glob('../' . Config::$uploadDir . '/' . $dir . '/' . '*');
-        $crumbs = trim(str_replace('../', '', '../' . Config::$uploadDir . '/' . $dir), '/');
+        $files = glob(AdminConfig::$frontendDir . '/' . Config::$uploadDir . '/' . $dir . '/' . '*');
+        $crumbs = trim(str_replace('../', '', AdminConfig::$frontendDir . '/' . Config::$uploadDir . '/' . $dir), '/');
         ?>
         <div id="filesList">
             <?php
@@ -135,7 +134,7 @@
                     $filename = basename($file);
                     if (is_file($file)) {
                         $imgSize = getimagesize($file);
-                        $url = str_replace('//', '/', '../' . Config::$uploadDir . '/' . $dir . '/' . $filename);
+                        $url = str_replace('//', '/', AdminConfig::$frontendDir . '/' . Config::$uploadDir . '/' . $dir . '/' . $filename);
                         $fileString .= '<span class="filewrap"><a data-url="' . $url . '"';
                         $fileString .= ($imgSize !== false ? 'data-width="' . $imgSize[0] . '" data-height="' . $imgSize[1] . '"' : '');
                         $fileString .= ' href="#">&nbsp;&nbsp;' . $filename . '</a><a class="deletefile" data-del="' . trim($dir . '/' . $filename, '/') . '" href="#"></a></span>';

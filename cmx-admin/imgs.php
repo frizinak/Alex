@@ -1,8 +1,9 @@
 <?php
 session_start();
-require_once('../Config.class.php');
-require_once('../' . Config::$coreDir . '/classes/Utils.php');
-require_once('../' . Config::$coreDir . '/classes/Login.php');
+require_once('AdminConfig.class.php');
+require_once(AdminConfig::$frontendDir . '/Config.class.php');
+require_once(AdminConfig::$frontendDir . '/' . Config::$coreDir . '/classes/Utils.php');
+require_once(AdminConfig::$frontendDir . '/' . Config::$coreDir . '/classes/Login.php');
 
 if (!Login::is_logged()) {
     die();
@@ -13,7 +14,7 @@ function get_images_in_dir($dir)
 {
     global $allowedExts, $notTinyMce;
 
-    if ($notTinyMce && $dir === '../' . Config::$imageDir) {
+    if ($notTinyMce && $dir === AdminConfig::$frontendDir . '/' . Config::$imageDir) {
         return '';
     }
     $ret = '';
@@ -24,7 +25,7 @@ function get_images_in_dir($dir)
         } else {
             $fileExt = explode('.', $file);
             if (in_array(strtolower($fileExt[count($fileExt) - 1]), $allowedExts)) {
-                $ret .= '["' . utf8_encode(str_replace('../','',$file)) . '","' . utf8_encode($file) . '"],';
+                $ret .= '["' . utf8_encode(str_replace(AdminConfig::$frontendDir . '/', '', $file)) . '","' . utf8_encode($file) . '"],';
             }
         }
     }
@@ -35,7 +36,7 @@ header('Content-type: ' . ($notTinyMce ? 'application/json' : 'text/javascript')
 header('pragma: no-cache');
 header('expires: 0');
 $o = $notTinyMce ? '[' : 'var tinyMCEImageList = new Array(';
-$o .= get_images_in_dir('../' . Config::$uploadDir);
+$o .= get_images_in_dir(AdminConfig::$frontendDir . '/' . Config::$uploadDir);
 $o = rtrim($o, ',');
 $o .= $notTinyMce ? ']' : ')';
 die($o);

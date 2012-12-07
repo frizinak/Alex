@@ -16,7 +16,7 @@
     <?php if (Admin::$page === 'edit'): ?>
         <script type="text/javascript" src="js/utils/jqyui.js"></script>
         <?php
-        $plugins = glob('../' . Config::$dataDir . '/custom/admin-plugins/*.js');
+        $plugins = glob('input-plugins/*.js');
         foreach ($plugins as $plugin) {
             echo '<script type="text/javascript" src="' . $plugin . '"></script>';
         }
