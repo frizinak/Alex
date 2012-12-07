@@ -128,7 +128,7 @@ AddRem.insert_into_page_tree = function (pagename, file) {
         AddRem.reload();
         return false;
     }
-    parent = parentName === text.NoParent ? cmx.pageTree.pages : cmx.get_page_in_tree(parentName);
+    parent = parentName === "_root" ? cmx.pageTree.pages : cmx.get_page_in_tree(parentName);
     if (parent === undefined) {
         notice(text.GetPageError, 1);
         AddRem.reload();
