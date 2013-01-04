@@ -8,10 +8,6 @@ if (isset($_POST['raw'])) {
     require_once('Config.class.php');
     require_once(Config::$coreDir . '/classes/Utils.php');
     $uniqueSalt = sha1(Utils::random_string(30) . microtime(true) . memory_get_usage(true));
-    $apc = apc_fetch('randomSalt');
-    if (empty($apc)) {
-        $apc = array('' => 1);
-    }
 
 
     echo '<textarea cols="50" rows="5">';
