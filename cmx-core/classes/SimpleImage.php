@@ -1,5 +1,4 @@
-<?php class SimpleImage
-{
+<?php class SimpleImage {
 
     /*
     * File: SimpleImage.php
@@ -21,12 +20,10 @@
     *
     */
 
-
     var $image;
     var $image_type;
 
-    function load($filename)
-    {
+    function load($filename) {
         $image_info = getimagesize($filename);
         $this->image_type = $image_info[2];
         if ($this->image_type == IMAGETYPE_JPEG) {
@@ -38,8 +35,7 @@
         }
     }
 
-    function save($filename, $image_type = IMAGETYPE_JPEG, $compression = 75, $permissions = null)
-    {
+    function save($filename, $image_type = IMAGETYPE_JPEG, $compression = 75, $permissions = null) {
         if ($image_type == IMAGETYPE_JPEG) {
             imagejpeg($this->image, $filename, $compression);
         } elseif ($image_type == IMAGETYPE_GIF) {
@@ -52,8 +48,7 @@
         }
     }
 
-    function output($image_type = IMAGETYPE_JPEG)
-    {
+    function output($image_type = IMAGETYPE_JPEG) {
         if ($image_type == IMAGETYPE_JPEG) {
             imagejpeg($this->image);
         } elseif ($image_type == IMAGETYPE_GIF) {
@@ -63,39 +58,33 @@
         }
     }
 
-    function getWidth()
-    {
+    function getWidth() {
         return imagesx($this->image);
     }
 
-    function getHeight()
-    {
+    function getHeight() {
         return imagesy($this->image);
     }
 
-    function resizeToHeight($height)
-    {
+    function resizeToHeight($height) {
         $ratio = $height / $this->getHeight();
         $width = round($this->getWidth() * $ratio);
         return $this->resize($width, $height);
     }
 
-    function resizeToWidth($width)
-    {
+    function resizeToWidth($width) {
         $ratio = $width / $this->getWidth();
         $height = round($this->getheight() * $ratio);
         return $this->resize($width, $height);
     }
 
-    function scale($scale)
-    {
+    function scale($scale) {
         $width = round($this->getWidth() * $scale / 100);
         $height = round($this->getheight() * $scale / 100);
         return $this->resize($width, $height);
     }
 
-    function resize($width, $height)
-    {
+    function resize($width, $height) {
         $new_image = imagecreatetruecolor($width, $height);
         imagealphablending($new_image, false);
         imagesavealpha($new_image, true);
@@ -105,5 +94,4 @@
         $this->image = $new_image;
         return array($width, $height);
     }
-
 }

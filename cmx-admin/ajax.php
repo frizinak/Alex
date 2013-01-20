@@ -7,13 +7,12 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
     require_once(AdminConfig::$frontendDir . '/' . Config::$coreDir . '/classes/Utils.php');
     require_once(AdminConfig::$frontendDir . '/' . Config::$coreDir . '/classes/Login.php');
 
-    $logged = Login::is_logged(); //isset($_SESSION['logged']) && $_SESSION['logged'] === true && isset($_SESSION['age']) && microtime(true) - $_SESSION['age'] < Config::$sessionExpiry && isset($_SESSION['ua']) && $_SESSION['ua'] === sha1($_SERVER['HTTP_USER_AGENT'] . Config::$salt);
-
+    $logged = Login::is_logged();
     if ($logged) {
 
-        function stripslashes_deep($value)
-        {
+        function stripslashes_deep($value) {
             $value = is_array($value) ? array_map("stripslashes_deep", $value) : stripslashes($value);
+
             return $value;
         }
 
@@ -24,25 +23,25 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
             //$_REQUEST = array_map("stripslashes_deep", $_REQUEST);
         }
 
-        $_SESSION['age'] = microtime(true);
+        $_SESSION['age'] = microtime(TRUE);
         $content = 'error';
         if (isset($_POST['getpage'])) {
             $content = @file_get_contents(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/pages/' . $_POST['getpage'] . '.json');
-            $content = $content !== false ? $content : 'error';
+            $content = $content !== FALSE ? $content : 'error';
         }
 
         if (isset($_POST['getpagetree'])) {
             $content = @file_get_contents(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/data/pages.json');
-            $content = $content !== false ? $content : 'error';
+            $content = $content !== FALSE ? $content : 'error';
         }
 
         if (isset($_POST['setpage']) && isset($_POST['name'])) {
             $newContent = @json_encode($_POST['setpage']);
-            $written = false;
-            if ($newContent !== false) {
+            $written = FALSE;
+            if ($newContent !== FALSE) {
                 $written = @file_put_contents(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/pages/' . $_POST['name'] . '.json', $newContent);
             }
-            if ($written !== false) {
+            if ($written !== FALSE) {
                 $content = 'saved';
             }
         }
@@ -50,11 +49,11 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
         if (isset($_POST['setpagetree'])) {
 
             $newContent = @json_encode($_POST['setpagetree']);
-            $written = false;
-            if ($newContent !== false) {
+            $written = FALSE;
+            if ($newContent !== FALSE) {
                 $written = @file_put_contents(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/data/pages.json', $newContent);
             }
-            if ($written !== false) {
+            if ($written !== FALSE) {
                 $content = 'saved';
             }
         }
@@ -70,7 +69,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
             }
             $data = json_encode($object);
             $file = @Utils::fopen_recursive(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/pages/' . $fn, 'w', Config::$newDirMask, Config::$newFileMask);
-            if ($file !== false && $data !== false) {
+            if ($file !== FALSE && $data !== FALSE) {
                 fwrite($file, $data);
                 fclose($file);
                 $content = explode('.', $fn);
@@ -80,58 +79,63 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
         if (isset($_POST['delpage'])) {
             $content = 'error';
             $deleted = @unlink(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/pages/' . $_POST['delpage'] . '.json');
-            if ($deleted !== false) {
+            if ($deleted !== FALSE) {
                 $content = 'success';
             }
         }
 
         if (isset($_POST['gettpl'])) {
             $content = @file_get_contents(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/custom/templates/' . $_POST['gettpl'] . '.json');
-            $content = $content !== false ? $content : 'error';
+            $content = $content !== FALSE ? $content : 'error';
         }
 
         if (isset($_POST['getalltpl'])) {
             $content = @glob(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/custom/templates/' . "*.json", GLOB_BRACE);
-            if ($content !== false) {
+            if ($content !== FALSE) {
                 foreach ($content as $k => $v) {
                     $content[$k] = basename($v, '.json');
                 }
             }
-            $content = $content !== false ? json_encode($content) : 'error';
+            $content = $content !== FALSE ? json_encode($content) : 'error';
         }
 
         if (isset($_POST['gettplbyparent'])) {
             if (isset(Config::$templateNesting) && count(Config::$templateNesting) > 0) {
-
-                $parentTpl = false;
+                require_once(AdminConfig::$frontendDir . '/' . Config::$coreDir . '/classes/Cmx.php');
+                Cmx::$pages = json_decode(file_get_contents(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/data/pages.json'), TRUE);
+                Utils::parse_pages();
+                $parentPage = FALSE;
                 if ($_POST['gettplbyparent'] === "_root") {
-                    $parentTpl = "_root";
+                    $parentPage = "_root";
                 } else {
-                    $parent = @file_get_contents(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/pages/' . $_POST['gettplbyparent'] . '.json');
-                    if ($parent !== false) {
-                        $parent = json_decode($parent, true);
-                        $parentTpl = $parent['template'];
+                    $parent = Cmx::get_page($_POST['gettplbyparent']);
+                    if ($parent !== FALSE) {
+                        $parent = @file_get_contents(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/pages/' . $parent['file'] . '.json');
+                    }
+                    if ($parent !== FALSE) {
+                        $parent = json_decode($parent, TRUE);
+                        $parentPage = $parent['template'];
                     }
                 }
-                if ($parentTpl !== false) {
-                    if (isset(Config::$templateNesting[$parentTpl]) && count(Config::$templateNesting[$parentTpl]) > 0) {
-                        $content = json_encode(Config::$templateNesting[$parentTpl]);
+                if ($parentPage !== FALSE) {
+                    if (isset(Config::$templateNesting[$parentPage]) && count(Config::$templateNesting[$parentPage]) > 0) {
+                        $content = json_encode(Config::$templateNesting[$parentPage]);
                     } else {
                         $content = json_encode(array());
                     }
                 } else {
-                    $content = false;
+                    $content = FALSE;
                 }
 
-                $content = $content !== false ? $content : 'error';
+                $content = $content !== FALSE ? $content : 'error';
             } else {
                 $content = @glob(AdminConfig::$frontendDir . '/' . Config::$dataDir . '/custom/templates/' . "*.json", GLOB_BRACE);
-                if ($content !== false) {
+                if ($content !== FALSE) {
                     foreach ($content as $k => $v) {
                         $content[$k] = basename($v, '.json');
                     }
                 }
-                $content = $content !== false ? json_encode($content) : 'error';
+                $content = $content !== FALSE ? json_encode($content) : 'error';
             }
         }
 

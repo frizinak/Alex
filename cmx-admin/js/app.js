@@ -15,6 +15,8 @@ App.init = function () {
     $('#tabcontent').html(text.TabContent);
     $('#tabnew').html(text.TabNew);
     $('#tabupload').html(text.TabUpload);
+    $('#tabdb').html(text.TabDb);
+
 
     $('#logout').html(text.Logout);
 

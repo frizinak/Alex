@@ -1,13 +1,10 @@
 <?php
 
-class AdminConfig
-{
+class AdminConfig {
 
-    public static $frontendDir="..";
+    public static $frontendDir = "..";
 
-
-    private function __construct()
-    {
+    private function __construct() {
         //static class
     }
 }

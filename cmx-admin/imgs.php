@@ -10,8 +10,7 @@ if (!Login::is_logged()) {
 }
 $notTinyMce = isset($_GET['non-mce']);
 $allowedExts = array('bmp', 'jpg', 'jpeg', 'png', 'bmp', 'gif');
-function get_images_in_dir($dir)
-{
+function get_images_in_dir($dir) {
     global $allowedExts, $notTinyMce;
 
     if ($notTinyMce && $dir === AdminConfig::$frontendDir . '/' . Config::$imageDir) {

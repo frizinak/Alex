@@ -1,13 +1,10 @@
 <?php
-class Utils
-{
-    private function __construct()
-    {
+class Utils {
+    private function __construct() {
     }
 
     // fopen and chmod each dir and the file
-    public static function fopen_recursive($path, $mode, $chmod = 0755, $fchmod = 0644)
-    {
+    public static function fopen_recursive($path, $mode, $chmod = 0755, $fchmod = 0644) {
         $directory = explode('/', $path);
         array_pop($directory);
 
@@ -31,13 +28,11 @@ class Utils
     }
 
     //save an opened ob
-    public static function save_ob($filename, $ttl)
-    {
+    public static function save_ob($filename, $ttl) {
         Utils::string_to_cache($filename, ob_get_flush(), $ttl);
     }
 
-    public static function string_to_cache($filename, $string, $ttl)
-    {
+    public static function string_to_cache($filename, $string, $ttl) {
         if ($ttl < 1) {
             return;
         }
@@ -58,8 +53,7 @@ class Utils
         }
     }
 
-    public static function get_cache($filename)
-    {
+    public static function get_cache($filename) {
         // apc
         if (Config::$useAPC && extension_loaded('apc')) {
             $file = apc_fetch('cmx_cache_' . $filename);
@@ -79,8 +73,7 @@ class Utils
         return false;
     }
 
-    public static function parse_pages($cache = true)
-    {
+    public static function parse_pages($cache = true) {
         $pageCache = $cache ? Utils::get_cache("core/flatpagecache.json") : false;
 
         if ($pageCache !== false) {
@@ -92,8 +85,7 @@ class Utils
         }
     }
 
-    private static function parse_page($parent, $url = "")
-    {
+    private static function parse_page($parent, $url = "") {
         if (isset($parent['subpages']) && count($parent['subpages']) > 0) {
             $order = 0;
             foreach ($parent['subpages'] as $page) {
@@ -117,20 +109,16 @@ class Utils
         }
     }
 
-    public static function htmlent($string)
-    {
+    public static function htmlent($string) {
         return htmlentities($string, ENT_QUOTES, "UTF-8");
-
     }
 
-    public static function safe_filename($filename, $ext, $dir)
-    {
+    public static function safe_filename($filename, $ext, $dir) {
         clearstatcache();
         return self::numbered_filename(preg_replace("/[^a-zA-Z0-9]/", "", $filename), $ext, $dir);
     }
 
-    public static function numbered_filename($prefix, $ext, $dir)
-    {
+    public static function numbered_filename($prefix, $ext, $dir) {
         clearstatcache();
         $tries = 0;
         $nr = 0;
@@ -143,8 +131,7 @@ class Utils
         return $fn . '.' . $ext;
     }
 
-    public static function random_filename($minlength, $prefix, $ext, $dir)
-    {
+    public static function random_filename($minlength, $prefix, $ext, $dir) {
         clearstatcache();
         $tries = 0;
         $length = $minlength;
@@ -155,13 +142,11 @@ class Utils
                 $tries = 0;
             }
             $fn = $prefix . self::random_string($length);
-
         } while (is_file($dir . '/' . $fn . '.' . $ext));
         return $fn . '.' . $ext;
     }
 
-    public static function random_string($length)
-    {
+    public static function random_string($length) {
         $string = "";
         $chars = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
         $cl = count($chars);
@@ -169,11 +154,9 @@ class Utils
             $string .= $chars[mt_rand(0, $cl - 1)];
         }
         return $string;
-
     }
 
-    public static function empty_dir($dir)
-    {
+    public static function empty_dir($dir) {
         //by Pascal MARTIN on stackoverflow
         $files = glob($dir . '*', GLOB_MARK);
         if ($files !== false) {
@@ -186,11 +169,9 @@ class Utils
                 }
             }
         }
-
     }
 
-    public static function backup($outputFile, $dirs, $mask)
-    {
+    public static function backup($outputFile, $dirs, $mask) {
         if (extension_loaded('zip')) {
             $type = "zip";
             $outputFile .= '.zip';
@@ -214,11 +195,9 @@ class Utils
             @chmod($outputFile, $mask);
         }
         return array($outputFile, $type);
-
     }
 
-    private static function backup_dir($dir, $zip, $div = "")
-    {
+    private static function backup_dir($dir, $zip, $div = "") {
         $contents = glob($dir . '/*');
         if ($zip !== false) {
             foreach ($contents as $file) {

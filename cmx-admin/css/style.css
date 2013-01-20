@@ -333,7 +333,7 @@ body {
 
 /*------------PAGELIST----------*/
 
-#pages {
+#pages, #plugins {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     list-style: none;
     border: 2px solid #cdcdbc;
@@ -370,7 +370,7 @@ body {
     list-style: none;
 }
 
-#pages li {
+#pages li, #plugins li {
     position: relative;
     padding: 0 0 0 15px;
     white-space: nowrap;
@@ -379,12 +379,12 @@ body {
 
 }
 
-#pages a {
+#pages a, #plugins a {
     text-decoration: none;
     color: #030c16;
 }
 
-#pages a.page {
+#pages a.page, #plugins a {
     margin: 0 0 2px 0;
     /*font-weight: bolder;  */
     height: 9px;
@@ -395,13 +395,13 @@ body {
     overflow: hidden;
 }
 
-#pages a.page:hover {
+#pages a.page:hover, #plugins a:hover {
     color: #4ab4d2;
     background-color: #030c16;
 
 }
 
-#pages a.page.active {
+#pages a.page.active, #plugins a.active {
     color: #4ab4d2;
     background-color: #030c16;
     cursor: default;

@@ -1,1 +1,15 @@
-{"template":"homeTpl","tplData":{"title":"","content":"","test1":"chk","test2":"btn2chk","singleimg":[["upload\/Bruce_Lee_kick-200x133.gif","",""],["upload\/Bruce_Lee_kick-200x133.gif","",""]],"multiimg":[["upload\/Bruce_Lee_kick-200x133.gif","",""]],"ag":"","ag2":""}}
+{"template": "homeTpl", "tplData": {
+    "title"    : "",
+    "content"  : "",
+    "test1"    : "chk",
+    "test2"    : "btn2chk",
+    "singleimg": [
+        ["upload\/Bruce_Lee_kick-200x133.gif", "", ""],
+        ["upload\/Bruce_Lee_kick-200x133.gif", "", ""]
+    ],
+    "multiimg" : [
+        ["upload\/Bruce_Lee_kick-200x133.gif", "", ""]
+    ],
+    "ag"       : "",
+    "ag2"      : ""
+}}

@@ -1,12 +1,10 @@
 <?php
 
-class Upload
-{
+class Upload {
     public static $imgMimes = array('image/gif', 'image/jpeg', 'image/png');
     public static $imgExt = array('gif', 'jpg', 'jpeg', 'png');
 
-    public static function up($dir)
-    {
+    public static function up($dir) {
         $errors = array();
         $fns = array();
         for ($i = 0; $i < count($_FILES['files']['name']); $i++) {
@@ -29,8 +27,6 @@ class Upload
                         self::resize($fn, $dir);
                     }
                 }
-
-
             } else {
                 switch ($_FILES['files']['error'][$i]) {
                     case UPLOAD_ERR_INI_SIZE:
@@ -52,19 +48,15 @@ class Upload
             return true;
         }
         return $errors;
-
     }
 
-    private static function add_string_to_filename($filename, $str)
-    {
+    private static function add_string_to_filename($filename, $str) {
         $filenameArr = explode('.', $filename);
         $filenameArr[count($filenameArr) - 2] .= $str;
         return implode('.', $filenameArr);
-
     }
 
-    public static function resize($imgname, $dir)
-    {
+    public static function resize($imgname, $dir) {
         if (isset(Config::$imageSizes) && Config::$imageSizes != null && count(Config::$imageSizes) > 0) {
             require_once('SimpleImage.php');
             $image = new SimpleImage();
@@ -90,5 +82,4 @@ class Upload
             }
         }
     }
-
 }

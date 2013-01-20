@@ -1,21 +1,17 @@
 <?php
 
-class CustomException extends Exception
-{
+class CustomException extends Exception {
     protected $_Context = null;
 
-    public function getContext()
-    {
+    public function getContext() {
         return $this->_Context;
     }
 
-    public function setContext($value)
-    {
+    public function setContext($value) {
         $this->_Context = $value;
     }
 
-    public function __construct($code, $message, $file, $line, $context)
-    {
+    public function __construct($code, $message, $file, $line, $context) {
         parent::__construct($message, $code);
 
         $this->file = $file;
@@ -24,14 +20,11 @@ class CustomException extends Exception
     }
 }
 
-class EHandler
-{
-    private function __construct()
-    {
+class EHandler {
+    private function __construct() {
     }
 
-    public static function error_handler($code, $message, $file, $line, $context)
-    {
+    public static function error_handler($code, $message, $file, $line, $context) {
 
         if (error_reporting() === 0) {
             return;
@@ -40,8 +33,7 @@ class EHandler
         throw new CustomException($code, $message, $file, $line, $context);
     }
 
-    public static function exception_handler($e)
-    {
+    public static function exception_handler($e) {
         try {
             ob_start();
             //$lines = explode("\n", $output);
@@ -67,7 +59,6 @@ class EHandler
             echo 'ErrorHandler';
         }
         exit;
-
         /*echo '<h3>oops! something went seriously wrong.</h3><p>It would be pretty awesome if you could mail me (kobelipkens@gmail.com) the following info:</p>';
         var_dump($e);
         echo '<pre>' . $e->message . '<br/>';

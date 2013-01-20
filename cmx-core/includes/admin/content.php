@@ -50,6 +50,10 @@
         <a id="tabcontent" href="index.php?page=edit" class="<?php echo Admin::$page === 'edit' ? 'active' : ''; ?>"></a>
         <a id="tabnew" href="index.php?page=new" class="<?php echo Admin::$page === 'new' ? 'active' : ''; ?>"></a>
         <a id="tabupload" href="index.php?page=upload" class="<?php echo Admin::$page === 'upload' ? 'active' : ''; ?>"></a>
+        <?php if (count(Admin::$adminPlugins) > 0): ?>
+        <a id="tabdb" href="index.php?page=db" class="<?php echo Admin::$page === 'db' ? 'active' : ''; ?>"></a>
+        <?php endif; ?>
+
     </div>
     <div class="clear"></div>
     <div id="main">
@@ -86,7 +90,7 @@
             <?php
             if (isset($_POST['uploadfiles']) && isset($_FILES['files'])) {
                 require_once(AdminConfig::$frontendDir . '/' . Config::$coreDir . '/classes/Upload.php');
-                $upped = Upload::up(AdminConfig::$frontendDir . '/'. Config::$uploadDir . '/' . $dir);
+                $upped = Upload::up(AdminConfig::$frontendDir . '/' . Config::$uploadDir . '/' . $dir);
                 if ($upped !== true) {
                     foreach ($upped as $error)
                         echo '<span class="error">' . $error . '</span><br/>';
@@ -153,6 +157,19 @@
         <div id="imageHover"></div>
 
         <div class="clear"><br/></div>
+        <?php elseif (Admin::$page === 'db'): ?>
+        <ul id="plugins">
+            <?php foreach (Admin::$adminPlugins as $adminPlugin => $dir): ?>
+            <li class="plugin"><a <?php echo isset($_GET['plugin']) && $_GET['plugin'] === $adminPlugin ? 'class="active"' : ''; ?> href='?page=db&plugin=<?php echo $adminPlugin; ?>'><?php echo $adminPlugin; ?></a></li>
+            <?php endforeach; ?>
+        </ul>
+        <div id="pluginContainer">
+            <?php
+            if (isset($_GET['plugin']) && isset(Admin::$adminPlugins[$_GET['plugin']])) {
+                require_once(Admin::$adminPlugins[$_GET['plugin']]);
+            }
+            ?>
+        </div>
         <?php endif; ?>
     </div>
 </div>

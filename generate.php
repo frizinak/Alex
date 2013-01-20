@@ -3,12 +3,10 @@
 //do not upload to live server
 //
 
-
 if (isset($_POST['raw'])) {
     require_once('Config.class.php');
     require_once(Config::$coreDir . '/classes/Utils.php');
     $uniqueSalt = sha1(Utils::random_string(30) . microtime(true) . memory_get_usage(true));
-
 
     echo '<textarea cols="50" rows="5">';
     echo '"' . $_POST['username'] . '":{' . "\n";

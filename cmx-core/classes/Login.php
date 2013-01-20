@@ -1,10 +1,8 @@
 <?php
-class Login
-{
+class Login {
     public static $error = '';
 
-    public static function log_in($un, $pw)
-    {
+    public static function log_in($un, $pw) {
         $passwords = json_decode(file_get_contents('../' . Config::$dataDir . '/data/users.json'), true);
         if (isset($passwords[$_POST['username']])) {
             session_regenerate_id(true);
@@ -20,8 +18,7 @@ class Login
         return false;
     }
 
-    public static function log_out()
-    {
+    public static function log_out() {
         $sesVars = array('logged', 'treeOpened', 'age', 'ua');
         foreach ($sesVars as $var) {
             $_SESSION[$var] = false;
@@ -29,8 +26,7 @@ class Login
         }
     }
 
-    public static function is_logged()
-    {
+    public static function is_logged() {
         return (isset($_SESSION['logged']) &&
             $_SESSION['logged'] === true &&
             isset($_SESSION['age']) &&
@@ -39,14 +35,11 @@ class Login
             $_SESSION['ua'] === $_SERVER['HTTP_USER_AGENT']);
     }
 
-    public static function prepare_session()
-    {
+    public static function prepare_session() {
         //session_regenerate_id(true);
         //$_SESSION['key'] = Utils::random_string(15);
         $_SESSION['logged'] = false;
         $_SESSION['age'] = 0;
         $_SESSION['ua'] = '';
     }
-
-
 }

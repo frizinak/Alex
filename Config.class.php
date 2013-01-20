@@ -1,7 +1,6 @@
 <?php
 
-class Config
-{
+class Config {
 
     //backend related entries
 
@@ -34,17 +33,16 @@ class Config
 
     public static $templateNesting = array("_root" => array("AgendaTpl", "blogTpl"), "AgendaTpl" => array(), "blogTpl" => array("blogPostTpl"));
 
-
     //frontend related entries
 
     //starts a session (recommended: true when multilingual or need access to $_SESSION in templates)
     public static $startSession = true;
 
     //amount of time templates are cached, use 0 when developing
-    public static $tplCacheTime = 1;
+    public static $tplCacheTime = 10000;
 
     //amount of time pages are cached, does not affect manual caching
-    public static $globalCacheTime = 5;
+    public static $globalCacheTime = 0;
 
     //enable caching, does not affect manual caching / tplcaching
     //public static $fullSiteCache = true;
@@ -73,10 +71,9 @@ class Config
     //true: show processing time of pages and latency in back-end
     public static $showTimers = true;
 
-
     //all relative to index.php
     public static $uploadDir = "upload";
-    public static $adminDir = "cmx-admin";
+    //public static $adminDir = "cmx-admin";
 
     // !=upload dir, its a cache for resized images
     public static $imageDir = "upload/image-cache";
@@ -86,14 +83,11 @@ class Config
     public static $coreDir = "cmx-core";
     public static $dataDir = "cmx-data";
 
-
     //permissions to use for all directories/files created by cmx, with suPHP should be max 0755-0644
     public static $newDirMask = 0777;
     public static $newFileMask = 0666;
 
-
-    private function __construct()
-    {
+    private function __construct() {
         //static class
     }
 }

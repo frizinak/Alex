@@ -18,6 +18,7 @@ var text = {
     "TabContent": "Content",
     "TabNew"    : "New",
     "TabUpload" : "Files",
+    "TabDb"     : "Database",
 
     "NoParent"     : "No Parent",
     "SaveBtn"      : "save",

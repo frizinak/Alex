@@ -1,17 +1,13 @@
 <?php
-class TplParser
-{
-    private function __construct()
-    {
+class TplParser {
+    private function __construct() {
     }
 
-    public static function make_tpl($tpl, $data)
-    {
+    public static function make_tpl($tpl, $data) {
         return TplParser::replace($tpl, $data);
     }
 
-    private static function replace($tpl, $data)
-    {
+    private static function replace($tpl, $data) {
 
         $tplPath = '' . $tpl;
         if (file_exists($tplPath)) {

@@ -1,6 +1,5 @@
 <?php
-class Cmx
-{
+class Cmx {
     //  raw html/php from template
     public static $pageContent = null;
     //  data/pages.json
@@ -19,14 +18,12 @@ class Cmx
     // 2-letter code
     public static $language = '';
 
-    private function __construct()
-    {
+    private function __construct() {
         // static object, no need to instantiate.
     }
 
     // returns page object
-    public static function get_page($name = null)
-    {
+    public static function get_page($name = null) {
         if ($name === null) {
             $name = self::$requestPage;
         }
@@ -37,8 +34,7 @@ class Cmx
     }
 
     // returns template variables of specified page
-    public static function get_content($name = null)
-    {
+    public static function get_content($name = null) {
         $p = self::get_page($name);
         if ($p !== false) {
             $file = @file_get_contents(Config::$dataDir . '/pages/' . $p['file'] . '.json');
@@ -54,8 +50,7 @@ class Cmx
     }
 
     //returns a page url which can be used anywhere.
-    public static function get_page_url($name = null)
-    {
+    public static function get_page_url($name = null) {
         $p = self::get_page($name);
         if ($p !== false) {
             $language = empty(self::$language) ? '' : self::$language . '/';
@@ -70,13 +65,11 @@ class Cmx
             } else {
                 return Config::$siteDir . '/?cmx-lang=' . self::$language . '&page=' . $p['url'];
             }
-
         }
         return false;
     }
 
-    public static function search($term, $pages = 'all', $maxResults = 1000)
-    {
+    public static function search($term, $pages = 'all', $maxResults = 1000) {
         $results = array();
         $term = preg_quote($term);
 
@@ -120,7 +113,6 @@ class Cmx
             }
         }
         return $results;
-
     }
 
     // param url = relative to index.php (and as shown when clicking an image in back-end (e.g upload/myimg.jpg))
@@ -131,8 +123,7 @@ class Cmx
     // $w!=0 || $h!=0 returns image from uploadDir if it has been preresized (during upload) or from cacheDir if it has been resized after uploading
     // otherwise resizes it and stores in in cacheDir
     // return = array(htmlUrl,realWidth,realHeight,htmlString), htmlUrl = ready to be used in templates, htmlString = 'width="int" height="int"'
-    public static function get_img($url, $w = 0, $h = 0, $maintainAspectRatio = true)
-    {
+    public static function get_img($url, $w = 0, $h = 0, $maintainAspectRatio = true) {
         //check if url is valid
         if (is_file($url)) {
             $realDims = @getimagesize($url);
@@ -140,7 +131,7 @@ class Cmx
                 return false;
             }
             $aspect = $realDims[0] / $realDims[1];
-            $cacheImages = Config::$imageDir ;
+            $cacheImages = Config::$imageDir;
             //need to resize, if not just return $url relative to root + img dimensions
             if (($w > 0 && $w < $realDims[0]) || ($h > 0 && $h < $realDims[1])) {
                 //unique name based on path+filename =>no collisions when working with same filenames in different directories

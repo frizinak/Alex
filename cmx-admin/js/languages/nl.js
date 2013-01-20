@@ -18,6 +18,7 @@ var text = {
     "TabContent": "Inhoud",
     "TabNew"    : "Nieuw",
     "TabUpload" : "Bestanden",
+    "TabDb"     : "Database",
 
     "NoParent"     : "Geen Hoofdpagina",
     "SaveBtn"      : "bewaren",

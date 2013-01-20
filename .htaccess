@@ -22,13 +22,14 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 
 
+
 #No directory browsing
 IndexIgnore *
 
 # deny all
-<FilesMatch "\.(htaccess|htpasswd|json|html?|php)$">
- Order Allow,Deny
-</FilesMatch>
+#<FilesMatch "\.(htaccess|htpasswd|json|html?|php)$">
+# Order Allow,Deny
+#</FilesMatch>
 
 
 #allow all
