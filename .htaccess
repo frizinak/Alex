@@ -1,10 +1,10 @@
 RewriteEngine On
-RewriteBase /Alex
+RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 #both (bad seo)
-#RewriteRule ^((en|nl|fr)(/|$))?(.*)$ index.php?cmx-lang=$2&page=$4 [L,QSA,NC]
+RewriteRule ^((en|nl|fr)(/|$))?(.*)$ index.php?cmx-lang=$2&page=$4 [L,QSA,NC]
 
 #singlelang
 #RewriteRule ^(.*)$ index.php?page=$1 [L,QSA,NC]
@@ -13,7 +13,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
     #any 2 lettercode (bad seo)
     #RewriteRule ^([a-z]{2})/?(.*)$ index.php?cmx-lang=$1&page=$2 [L,QSA,NC]
     #fixed lettercodes (good seo)
-    RewriteRule ^(en|nl|fr)(/(.*)|)$ index.php?cmx-lang=$1&page=$3 [L,QSA,NC]
+    #RewriteRule ^(en|nl|fr)(/(.*)|)$ index.php?cmx-lang=$1&page=$3 [L,QSA,NC]
 
 
 

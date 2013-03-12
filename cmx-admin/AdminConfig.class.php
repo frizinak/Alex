@@ -2,9 +2,9 @@
 
 class AdminConfig {
 
-    public static $frontendDir = "..";
+  public static $frontendDir = "..";
 
-    private function __construct() {
-        //static class
-    }
+  private function __construct() {
+    //static class
+  }
 }

@@ -4,15 +4,15 @@
 //
 
 if (isset($_POST['raw'])) {
-    require_once('Config.class.php');
-    require_once(Config::$coreDir . '/classes/Utils.php');
-    $uniqueSalt = sha1(Utils::random_string(30) . microtime(true) . memory_get_usage(true));
+  require_once('Config.class.php');
+  require_once(Config::$coreDir . '/classes/Utils.php');
+  $uniqueSalt = sha1(Utils::random_string(30) . microtime(TRUE) . memory_get_usage(TRUE));
 
-    echo '<textarea cols="50" rows="5">';
-    echo '"' . $_POST['username'] . '":{' . "\n";
-    echo '"pw":"' . sha1(sha1($uniqueSalt . $_POST['raw']) . Config::$pwSalt) . "\",\n";
-    echo '"salt":"' . $uniqueSalt . "\"\n}";
-    echo '</textarea>';
+  echo '<textarea cols="50" rows="5">';
+  echo '"' . $_POST['username'] . '":{' . "\n";
+  echo '"pw":"' . sha1(sha1($uniqueSalt . $_POST['raw']) . Config::$pwSalt) . "\",\n";
+  echo '"salt":"' . $uniqueSalt . "\"\n}";
+  echo '</textarea>';
 }
 
 
